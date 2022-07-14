@@ -1,0 +1,47 @@
+.login {
+    margin: 5%;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 10px auto;
+    padding: 20px;
+    background: white;
+}
+
+.login-form label {
+    margin-bottom: 10px;
+    background: white;
+}
+
+.login-form input {
+    width: 100%;
+    border-right: 1px solid #80CFA9;
+}
+
+.submit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: white;
+}
+
+.login-form button {
+    width: 40%;
+}
+
+.login-submit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    background: white;
+}
+
+.login-submit a {
+    background: white;
+    height: 100%;
+    text-align: center;
+}

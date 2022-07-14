@@ -1,0 +1,22 @@
+.wrapper {
+    height: 50px;
+}
+
+.add-task {
+    height: 100%;
+}
+
+input:focus {
+    outline-color : #80CFA9;
+}
+
+
+@Media (max-width: 600px){
+    .add-task {
+        width: 85%;
+        margin: 0 auto;
+    }
+
+}
+
+

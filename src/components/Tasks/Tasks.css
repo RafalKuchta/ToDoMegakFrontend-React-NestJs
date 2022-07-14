@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Great+Vibes&family=Noto+Sans+JP:wght@500&family=Splash&family=The+Nautigal&display=swap');
+
+
+.wrapper-to-do {
+    display: flex;
+}
+
+h2 {
+    margin: 40px 20px;
+    text-align:center;
+    font-size: 40px;
+    font-weight: normal;
+    font-family: 'Caveat', cursive;
+}
+
+.tasks-to-do {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 5px auto;
+    padding: 10px;
+    border: 1px solid #baeed5;
+    border-radius: 5px;
+}
+
+.icons-to-do {
+   display: flex;
+}
+
+.icon-done {
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    color: #80CFA9;
+}
+.icon-done:active {
+    box-shadow: 0 0 5px green;
+}
+.icon-done:hover {
+    color: green;
+}
+
+
+.icon-edit {
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    color: #73B7E5;
+}
+.icon-edit:active {
+    box-shadow: 0 0 5px #036fc4;
+}
+.icon-edit:hover {
+    color: #036fc4;
+}
+
+
+.icon-trash {
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    color: #DE7969;
+}
+.icon-trash:active {
+    box-shadow: 0 0 5px red;
+}
+.icon-trash:hover {
+    color: red;
+}
+
+
+@Media (max-width: 600px){
+    .wrapper-to-do {
+        flex-direction: column;
+    }
+
+    .icons-to-do {
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .tasks-to-do {
+        flex-direction: column;
+        width: 85%;
+    }
+
+    .task-to-do {
+        font-size: 18px;
+    }
+
+     h2 {
+         font-size: 30px;
+         margin: 40px 20px 20px 20px;
+    }
+
+}
+
+@Media (max-width: 300px){
+    .add-task {
+        width: 85%;
+        margin: 0 auto;
+    }
+
+}
+
