@@ -6,8 +6,8 @@ import {Link} from "react-router-dom";
 
 export const Login = ({setIsLogined}:any) => {
     const [{email, pwd}, setCredentials] = useState({
-        email: '',
-        pwd: '',
+        email: "",
+        pwd: "",
     })
     const [error, setError] = useState('');
 
@@ -29,6 +29,7 @@ export const Login = ({setIsLogined}:any) => {
         if(response && response.error) {
             setError(response.error)
         }
+
     }
 
     return (
@@ -37,7 +38,7 @@ export const Login = ({setIsLogined}:any) => {
             <form className="login-form" onSubmit={login}>
                 <label htmlFor="username">Użytkownik</label>
                 <input
-                    type="text"
+                    type="email"
                     placeholder="Użytkownik"
                     value={email}
                     onChange={(e) => setCredentials({

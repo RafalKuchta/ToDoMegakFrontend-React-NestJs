@@ -47,8 +47,13 @@ input.search-input {
     /*overflow: hidden;*/
 }
 
-.user logout-btn {
+.user .svg-inline--fa {
+    margin-left: 5px;
+}
 
+.user button{
+    margin-top: 10px;
+    width: 100%;
 }
 
 @Media (max-width: 1100px){

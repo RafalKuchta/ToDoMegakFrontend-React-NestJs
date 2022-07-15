@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import './Register.css';
 import {onRegister} from "../Login/Login.api";
+import {useNavigate} from "react-router";
 
 
 export const Register = () => {
@@ -12,6 +13,8 @@ export const Register = () => {
     });
     const [error, setError] = useState('');
 
+    const navigate = useNavigate();
+
     const register = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -20,6 +23,8 @@ export const Register = () => {
                 email,
                 pwd,
             })
+
+            navigate('/', {replace: true})
 
             if(response && response.error){
                 setError(response.error)

@@ -9,19 +9,26 @@ import {TodoEntity} from 'types';
 import './Tasks.css';
 import {apiUrl} from "../../config/api";
 
-
 export const Tasks = ({setIsLogined}:any) => {
-    const {search, setSearch} = useContext(SearchContext);
+    const {search} = useContext(SearchContext);
     const {loading, setLoading} = useContext(LoadingContext);
     const [todos, setTodos] = useState<TodoEntity[]>([]);
     const [done, setDone] = useState<TodoEntity[]>([]);
 
     useEffect(() => {
         (async () => {
-            const res = await fetch('http://localhost:3001/todo/search/');
-            const data = await res.json();
+            const res = await fetch(`${apiUrl}/todo/search/`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': `${apiUrl}`,
+                },
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
 
-            console.log(data)
+            });
+            const data = await res.json();
 
             if(data.statusCode === 401) {
                 setIsLogined(false)
@@ -46,10 +53,14 @@ export const Tasks = ({setIsLogined}:any) => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': `${apiUrl}`,
                 },
                 body: JSON.stringify({
                     id,
-                })
+                }),
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
             });
         })();
 
@@ -63,11 +74,15 @@ export const Tasks = ({setIsLogined}:any) => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': `${apiUrl}`,
                 },
                 body: JSON.stringify({
                     id,
                     completed: true,
                 }),
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
             });
         })();
     };
@@ -79,11 +94,15 @@ export const Tasks = ({setIsLogined}:any) => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': `${apiUrl}`,
                 },
                 body: JSON.stringify({
                     id,
                     completed: false,
                 }),
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
             });
         })();
     };

@@ -17,16 +17,19 @@ export const AddForm = () => {
 
         setLoading(true);
 
-
         try {
             await fetch(`${apiUrl}/todo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': `${apiUrl}`,
                 },
                 body: JSON.stringify({
                     ...form,
                 }),
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
             })
             setForm({
                 name: '',

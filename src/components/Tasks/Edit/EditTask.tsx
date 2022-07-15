@@ -7,7 +7,7 @@ import './EditTask.css';
 import {useNavigate, useParams} from "react-router";
 import {apiUrl} from "../../../config/api";
 
-export const EditTask = (props: object) => {
+export const EditTask = () => {
     const {loading, setLoading} = useContext(LoadingContext);
     const [form, setForm] = useState({name:""});
 
@@ -16,7 +16,16 @@ export const EditTask = (props: object) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${apiUrl}/todo/${id}`);
+            const res = await fetch(`${apiUrl}/todo/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3001',
+                },
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
+            });
             const data = await res.json();
 
             setForm({name: data.name});
@@ -34,7 +43,11 @@ export const EditTask = (props: object) => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3001',
                 },
+                referrerPolicy: 'no-referrer',
+                credentials: 'include',
+                mode: 'cors',
                 body: JSON.stringify({
                     ...form,
                 }),
@@ -61,7 +74,6 @@ export const EditTask = (props: object) => {
                     name="name"
                     required
                     maxLength={1000}
-                    placeholder="Nazwa zadania..."
                     value={form.name}
                     onChange={e => updateForm('name', e.target.value)}
                 />

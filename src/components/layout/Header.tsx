@@ -3,32 +3,43 @@ import './Header.css';
 import {SearchContext} from "../../context/search.context";
 import {AddForm} from "../Tasks/Add/AddForm";
 import {onLogout} from "../Login/Login.api";
+import {useNavigate} from "react-router";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 
-export const Header = ({email}:any) => {
+export const Header = ({setIsLogined}:any) => {
     const {search, setSearch} = useContext(SearchContext);
     const [isActive, setIsActive] = useState(false);
-    // const [inputVal, setInputVal] = useState(search);
+
+    const navigate = useNavigate();
 
     const setSearchFromLocalState = (e: SyntheticEvent) => {
         e.preventDefault();
         setSearch(search)
     }
 
-    const handleClick = (e: SyntheticEvent) => {
+    const handleClick = () => {
         setIsActive(current => !current);
     };
 
     const logout = async () => {
-        const response = await onLogout();
-        console.log(response)
+        await onLogout();
+        setIsLogined.setIsLogined({
+            isLogined: false,
+            email: "",
+        });
+        navigate('/', {replace: true})
     }
 
     return (
         <header>
-            <h1>---
-                <div className={isActive ? 'user logout-btn' : 'user'} onClick={handleClick}>
-                    <p>Witaj: {email}</p>
-                    <button onClick={() => logout()}>Wyloguj</button>
+            <h1>To Do Lista
+                <div className='user'>
+                    <p onClick={handleClick}>Witaj: {setIsLogined.email}
+                        <FontAwesomeIcon className='ico' icon={faAngleDown}/>
+                    </p>
+
+                    {isActive ? <button onClick={() => logout()}>Wyloguj</button> : null}
                 </div>
 
                 <form onSubmit={setSearchFromLocalState}>
