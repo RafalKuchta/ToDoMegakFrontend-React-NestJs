@@ -69,6 +69,7 @@ export const EditTask = () => {
         <div className="wrapper">
             {(loading) ? <Spinner /> : null}
             <form className="add-task" onSubmit={editToDo}>
+                <h2>Edytuj zadanie</h2>
                 <input
                     type="text"
                     name="name"

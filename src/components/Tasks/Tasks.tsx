@@ -17,7 +17,7 @@ export const Tasks = ({setIsLogined}:any) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${apiUrl}/todo/search/`, {
+            const res = await fetch(`${apiUrl}/todo/search/${search}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',

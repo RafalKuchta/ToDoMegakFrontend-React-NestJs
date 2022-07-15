@@ -13,6 +13,7 @@ export const Login = ({setIsLogined}:any) => {
 
     const login = async (e: React.FormEvent) => {
         e.preventDefault();
+
         setError('')
         const response = await onLogin({
             email,
@@ -22,7 +23,7 @@ export const Login = ({setIsLogined}:any) => {
         if(response.ok){
             setIsLogined({
                 isLogined: response.ok,
-                email: response.email
+                email: response.email,
             });
         }
 
@@ -36,11 +37,11 @@ export const Login = ({setIsLogined}:any) => {
         <>
             <h2 className="login">Zaloguj</h2>
             <form className="login-form" onSubmit={login}>
-                <label htmlFor="username">Użytkownik</label>
+                <label htmlFor="username">Email</label>
                 <input
                     type="email"
-                    placeholder="Użytkownik"
                     value={email}
+                    required
                     onChange={(e) => setCredentials({
                         email: e.target.value,
                         pwd,
@@ -50,14 +51,14 @@ export const Login = ({setIsLogined}:any) => {
                 <label htmlFor="password">Hasło</label>
                 <input
                     type="password"
-                    placeholder='Hasło'
+                    required
                     onChange={(e) => setCredentials({
                         email,
                         pwd: e.target.value,
                     })}
                 />
                 <div className="login-submit">
-                    <button type="submit">Zaloguj</button> <Link to="/register">Zarejestruj</Link>
+                    <button type="submit">Zaloguj</button> <Link to="/register">Zarejestruj się</Link>
                 </div>
 
                 {error.length > 0 && <p>{error}</p>}
