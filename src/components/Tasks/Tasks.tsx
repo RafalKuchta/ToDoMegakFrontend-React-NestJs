@@ -8,6 +8,8 @@ import {LoadingContext} from "../../context/loading.context";
 import {TodoEntity} from 'types';
 import './Tasks.css';
 import {apiUrl} from "../../config/api";
+import {Search} from "./Search/Search";
+import {AddForm} from "./Add/AddForm";
 
 export const Tasks = ({setIsLogined}:any) => {
     const {search} = useContext(SearchContext);
@@ -110,7 +112,10 @@ export const Tasks = ({setIsLogined}:any) => {
 
     return (
         <>
-            <h2>Zadania do zrobienia</h2>
+            <h2>To Do Lista</h2>
+            <Search />
+            <AddForm />
+            <h3>Zadania do zrobienia</h3>
             {
                 todos.map(todo => (
                     <div key={todo.id} className="wrapper-to-do">
@@ -142,7 +147,7 @@ export const Tasks = ({setIsLogined}:any) => {
                 ))
             }
 
-            <h2>Zadania zrobione</h2>
+            <h3>Zadania zrobione</h3>
 
             {
                 done.map(don => (

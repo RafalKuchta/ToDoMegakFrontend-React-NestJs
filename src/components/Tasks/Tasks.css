@@ -5,12 +5,37 @@
     display: flex;
 }
 
+h1 {
+    margin: 20px;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Caveat', cursive;
+}
+
 h2 {
     margin: 40px 20px;
     text-align:center;
-    font-size: 40px;
+    font-size: 45px;
     font-weight: normal;
     font-family: 'Caveat', cursive;
+}
+
+h3 {
+    margin: 40px 20px;
+    text-align:center;
+    font-size: 30px;
+    font-weight: normal;
+    font-family: 'Caveat', cursive;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #80CFA9;
+    border-right: none;
+    background: white;
 }
 
 .tasks-to-do {

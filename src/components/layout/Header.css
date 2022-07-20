@@ -1,75 +1,66 @@
-header {
-    margin: 5px;
+.header {
+    height: 50px;
+    border-bottom: 1px solid #80CFA9;
 }
 
-header h1 {
-    margin: 20px;
-    text-align: center;
-    font-size: 70px;
-    font-family: 'Caveat', cursive;
-}
-
-.wrapper {
+.nav {
     display: flex;
+    height: 100%;
+    align-items: center;
 }
 
-.add-task {
-    width: 70%;
-    margin: 0 auto;
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    /*color: #71bef5;*/
+    color: #345DE0;
+    margin-left: 20px;
+    text-decoration: none;
 }
 
-
-input {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 3px;
-    border: 1px solid #80CFA9;
-    border-right: none;
-    background: white;
+a.todo {
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+    margin: 10px 5px 10px 20px;
 }
 
+.todo:hover {
+    font-weight: bold;
+    border-bottom: 1px solid #80CFA9;
+}
 
-input.search-input {
-    margin: 20px;
-    height: 20px;
-    width: 20%;
-    padding: 10px;
-    border: 1px solid #80CFA9;
-    border-radius: 50px;
-    background: white;
+a.chat {
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+    margin: 10px 5px;
+}
+
+.active {
+    font-weight: bold;
+}
+
+.chat:hover {
+    font-weight: bold;
+    border-bottom: 1px solid #80CFA9;
 }
 
 .user {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    /*overflow: hidden;*/
+    position: absolute;
+    top: 15px;
+    right: 15px;
 }
 
 .user .svg-inline--fa {
     margin-left: 5px;
 }
 
-.user button{
+.user button {
     margin-top: 10px;
     width: 100%;
+    overflow: hidden;
 }
 
-@Media (max-width: 1100px){
-    input.search-input {
-        width: 30%;
-    }
-}
 
-@Media (max-width: 600px){
-    header h1 {
-        font-size: 40px;
-    }
-
-    input.search-input {
-        width: 60%;
-    }
-
-}
 

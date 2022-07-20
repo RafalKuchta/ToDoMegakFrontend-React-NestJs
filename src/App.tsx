@@ -10,6 +10,10 @@ import { Login } from './components/Login/Login';
 import {Register} from "./components/Register/Register";
 import {ErrorPage} from "./components/Error/ErrorPage";
 import {onCheck} from "./components/Login/Login.api";
+import {MessageComponent} from "./components/Messages/MessageComponent";
+import {Home} from "./components/Home/Home";
+import {SmsForm} from "./components/Sms/SmsForm";
+import {AddNumber} from "./components/Sms/Add/AddNumber";
 
 export const App = () => {
     const [search, setSearch] = useState('');
@@ -47,6 +51,20 @@ export const App = () => {
                                 isLogined ? (
                                     <>
                                         <Header setIsLogined={{setIsLogined, email}} />
+                                        <Home setIsLogined={setIsLogined}/>
+                                    </>
+                                )   : (
+                                    <Login setIsLogined={setIsLogined} />
+                                )
+                            }
+                        >
+                        </Route>
+                        <Route
+                            path ='/todo'
+                            element = {
+                                isLogined ? (
+                                    <>
+                                        <Header setIsLogined={{setIsLogined, email}} />
                                         <Tasks setIsLogined={setIsLogined}/>
                                     </>
                                 )   : (
@@ -60,7 +78,50 @@ export const App = () => {
                             element = {
                                 isLogined ? (
                                     <>
+                                        <Header setIsLogined={{setIsLogined, email}} />
                                         <EditTask />
+                                    </>
+                                )   : (
+                                    <Login setIsLogined={setIsLogined} />
+                                )
+                            }
+                        >
+                        </Route>
+                        <Route
+                            path ='/chat'
+                            element = {
+                                isLogined ? (
+                                    <>
+                                        <Header setIsLogined={{setIsLogined, email}} />
+                                        <MessageComponent />
+                                    </>
+                                )   : (
+                                    <Login setIsLogined={setIsLogined} />
+                                )
+                            }
+                        >
+                        </Route>
+                        <Route
+                            path ='/sms'
+                            element = {
+                                isLogined ? (
+                                    <>
+                                        <Header setIsLogined={{setIsLogined, email}} />
+                                        <SmsForm />
+                                    </>
+                                )   : (
+                                    <Login setIsLogined={setIsLogined} />
+                                )
+                            }
+                        >
+                        </Route>
+                        <Route
+                            path ='/sms/add'
+                            element = {
+                                isLogined ? (
+                                    <>
+                                        <Header setIsLogined={{setIsLogined, email}} />
+                                        <AddNumber />
                                     </>
                                 )   : (
                                     <Login setIsLogined={setIsLogined} />
