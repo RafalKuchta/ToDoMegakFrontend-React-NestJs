@@ -8,7 +8,6 @@ export const SmsForm = () => {
     const [sms, setSms] = useState('');
     const [number, setNumber] = useState('');
     const [group, setGroup] = useState({});
-    const [loading, setLoading] = useState(false);
     const [smsBase, setSmsBase] = useState([{
         id: '',
         name: '',
@@ -101,7 +100,7 @@ export const SmsForm = () => {
 
     return (
         <div className="wrapper-sms">
-            <h3>Bramka SMS!</h3>
+            <h2>Bramka SMS!</h2>
             <p>
                 <button onClick={addNumber}>Dodaj numer do bazy</button>
             </p>
