@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './AddNumber.css';
-import {useNavigate} from "react-router";
 import {apiUrl} from "../../../config/api";
 import {Done} from "../../common/Done/Done";
 
@@ -21,7 +20,7 @@ export const AddNumber = () => {
         setDone(false)
         event.preventDefault();
 
-        await fetch(`${apiUrl}/sms`, {
+        await fetch(`${apiUrl}/sms/add-phone`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +42,7 @@ export const AddNumber = () => {
 
 
     if(done) {
-        return <Done text={`Numer ${form.phone} dodany do bazy.`}/>
+        return <Done message={`Numer ${form.phone} dodany do bazy.`} text="Powrót" to={"/sms"}/>
     }
 
     const updateForm = (key: string, value: any) => {
