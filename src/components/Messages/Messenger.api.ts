@@ -10,6 +10,7 @@ export const onGetMessages = async () => {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
+            'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Origin': `${apiUrl}`,
         },
         url: `${apiUrl}/chat`,
@@ -31,10 +32,12 @@ export const onSendMessage = async (data: Data) => {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
+            'Access-Control-Allow-Credentials': true,
             'Access-Control-Allow-Origin': `${apiUrl}`,
         },
-        url: `${apiUrl}/chat`,
         withCredentials: true,
+        url: `${apiUrl}/chat`,
+        data,
     }
 
     try {
