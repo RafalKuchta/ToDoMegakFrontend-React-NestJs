@@ -1,27 +1,30 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {onSendMessage} from "./Messenger.api";
+import {LoadingContext} from "../../context/loading.context";
 
-export const MessageInput = ({send}: {send: (value: string) => void}) => {
+export const MessageInput = ({send}: { send: (value: string) => void}) => {
+    const {loading, setLoading} = useContext(LoadingContext);
     const [value, setValue] = useState("");
 
     const sendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(value)
+        setLoading(true);
 
-        const response = await onSendMessage({
-            message: value
-        })
+        await onSendMessage({message: value})
 
+        setValue("");
     }
 
     return (
         <>
-            <form onSubmit={sendMessage}>
+            <form className="input-message" onSubmit={sendMessage}>
                 <input
                     type="text"
                     placeholder="Wpisz wiadomość..."
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                    }}
                     required
                 />
                 <button onClick={() => send(value)}>Wyślij</button>
