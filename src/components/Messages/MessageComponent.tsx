@@ -5,17 +5,19 @@ import {io, Socket} from "socket.io-client";
 import {MessageInput} from "./MessageInput";
 import {Messages} from "./Messages";
 
-export const MessageComponent = () => {
+export const MessageComponent = ({email}: {email: string }) => {
     const [socket, setSocket] = useState<Socket>();
     const [messages, setMessages] = useState<string[]>([]);
+    const [user, setUSer] = useState<string>('');
 
     const send = (value: string) => {
-        socket?.emit('message', value)
+        socket?.emit('message', value, email, new Date().toLocaleTimeString())
     }
 
     useEffect(() => {
         const newSocket = io("http://localhost:3002");
-        setSocket(newSocket)
+        setSocket(newSocket);
+        setUSer(email);
     }, [setSocket]);
 
     const messageListener = (message: string) => {
@@ -33,8 +35,8 @@ export const MessageComponent = () => {
     return (
         <div className="messages-page">
             <h2>Chat</h2>
+            <Messages message={messages} />
             <MessageInput send={send}/>
-            <Messages messages={messages}/>
         </div>
 
     )
