@@ -1,0 +1,36 @@
+.wrapper-add-phones {
+    width: 60%;
+    margin: 10px auto;
+}
+
+.wrapper-add-phones button {
+    width: 100%;
+}
+
+.wrapper-add-phones label {
+    display: inline-block;
+    width: 100%;
+}
+
+.wrapper-add-phones input {
+    width: 100%;
+    margin: 10px 0 20px 0;
+    border: 1px solid #80CFA9;
+}
+
+.wrapper-add-phones .add, .wrapper-add-phones select, .wrapper-add-phones textarea {
+    height: 100%;
+    width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #80CFA9;
+    background: white;
+}
+
+.wrapper-add-phones textarea {
+    height: 100px;
+}
+
+input:focus {
+    outline-color : #80CFA9;
+}

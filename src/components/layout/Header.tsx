@@ -1,22 +1,15 @@
-import React, {SyntheticEvent, useContext, useState} from 'react';
+import React, {useState} from 'react';
 import './Header.css';
-import {SearchContext} from "../../context/search.context";
-import {AddForm} from "../Tasks/Add/AddForm";
 import {onLogout} from "../Login/Login.api";
 import {useNavigate} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import { NavLink } from 'react-router-dom';
 
-export const Header = ({setIsLogined}:any) => {
-    const {search, setSearch} = useContext(SearchContext);
+export const Header = ({setIsLogined}: any) => {
     const [isActive, setIsActive] = useState(false);
 
     const navigate = useNavigate();
-
-    const setSearchFromLocalState = (e: SyntheticEvent) => {
-        e.preventDefault();
-        setSearch(search)
-    }
 
     const handleClick = () => {
         setIsActive(current => !current);
@@ -32,28 +25,23 @@ export const Header = ({setIsLogined}:any) => {
     }
 
     return (
-        <header>
-            <h1>To Do Lista
-                <div className='user'>
-                    <p onClick={handleClick}>Witaj: {setIsLogined.email}
-                        <FontAwesomeIcon className='ico' icon={faAngleDown}/>
-                    </p>
+        <header className="header">
+            <div className="nav">
+                <NavLink to='/' className="logo">MegaApp</NavLink>
+                <NavLink to='/todo' className={({ isActive }) => (isActive ? "todo active" : "todo")}>To Do</NavLink>
+                <NavLink to='/chat' className={({ isActive }) => (isActive ? "chat active" : "chat")}>Chat</NavLink>
+                <NavLink to='/sms' className={({ isActive }) => (isActive ? "chat active" : "chat")}>Sms</NavLink>
 
-                    {isActive ? <button onClick={() => logout()}>Wyloguj</button> : null}
-                </div>
+            </div>
+            <div className='user'
+                 unselectable="on"
+            >
+                <p onClick={handleClick}>{setIsLogined.email}
+                    <FontAwesomeIcon className='ico' icon={faAngleDown}/>
+                </p>
 
-                <form onSubmit={setSearchFromLocalState}>
-                    <input
-                        type="text"
-                        className="search-input"
-                        placeholder="Szukaj zadania..."
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}/>
-                </form>
-            </h1>
-
-            <AddForm />
-
+                {isActive ? <button onClick={() => logout()}>Wyloguj</button> : null}
+            </div>
         </header>
     );
 };

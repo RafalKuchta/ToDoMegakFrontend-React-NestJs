@@ -4,6 +4,8 @@
 
 .add-task {
     height: 100%;
+    width: 60%;
+    margin: 10px auto;
 }
 
 input:focus {

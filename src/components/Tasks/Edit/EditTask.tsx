@@ -38,7 +38,7 @@ export const EditTask = () => {
         setLoading(true);
 
         try {
-            navigate('/', {replace: true})
+            navigate('/todo', {replace: true})
             await fetch(`${apiUrl}/todo/${id}`, {
                 method: 'PATCH',
                 headers: {

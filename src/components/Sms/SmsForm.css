@@ -1,0 +1,25 @@
+.wrapper-sms {
+    width: 60%;
+    margin: 10px auto;
+}
+
+.wrapper-sms button {
+    width: 100%;
+}
+
+.wrapper-sms .add, .wrapper-sms select, .wrapper-sms textarea {
+    height: 100%;
+    width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #80CFA9;
+    background: white;
+}
+
+.wrapper-sms textarea {
+    height: 100px;
+}
+
+input:focus {
+    outline-color : #80CFA9;
+}
