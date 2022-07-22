@@ -24,7 +24,12 @@ export const Register = () => {
                 pwd,
             })
 
-            navigate('/', {replace: true})
+            if (response.error === "Request failed with status code 409") {
+                response.error = "Użytkownik już istnieje."
+            } else {
+                // alert(`Uzytkownik ${email} dodany do bazy.`)
+                navigate('/', {replace: true})
+            }
 
             if(response && response.error){
                 setError(response.error)
