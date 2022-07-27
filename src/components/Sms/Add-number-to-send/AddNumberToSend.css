@@ -1,0 +1,15 @@
+.addNumberToSend {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    line-height: 30px;
+}
+
+.addNumberToSend--paragraf {
+    text-align: center;
+    height: 30px;
+}
+
+.addNumberToSend--checkbox {
+    width: 20px;
+}
