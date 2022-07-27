@@ -1,22 +1,37 @@
-import React, {ChangeEvent, SyntheticEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useContext, useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
 import  './SmsForm.css';
 import {apiUrl} from "../../config/api";
 import {Done} from "../common/Done/Done";
+import {AddNumberToSend, PhonesToSend} from "./Add-number-to-send/AddNumberToSend";
+import {PhonesContext} from "../../context/phones.context";
 
-export const SmsForm = () => {
+export interface SmsInBase {
+    id: string,
+    phone: string,
+    name: string,
+    surname: string,
+    company: string,
+}
+
+export const SmsForm = (props: any) => {
     const [select, setSelect] = useState(true);
     const [done, setDone] = useState(false)
     const [sms, setSms] = useState('');
     const [number, setNumber] = useState('');
+    const {phones, setPhones} = useContext(PhonesContext);
     const [group, setGroup] = useState('');
-    const [smsBase, setSmsBase] = useState([{
+    const [smsBase, setSmsBase] = useState<SmsInBase[]>([{
         id: '',
         name: '',
         surname: '',
         company: '',
         phone: '',
     }]);
+    const [form, setForm] = useState({
+        name: '',
+    });
+    const [isAddingNumber, setIsAddingNumber] = useState(false);
 
     const navigate = useNavigate();
 
@@ -48,15 +63,21 @@ export const SmsForm = () => {
 
     const sendSms = (e: SyntheticEvent) => {
         e.preventDefault();
+
+        console.log(phones)
+
         let smsObj = {
             mobile_number: '+48' + number,
             message: sms,
+            phones,
         }
 
         let groupObj = {
             mobile_numbers: group,
             message: sms,
         }
+
+        console.log(smsObj)
 
         fetch(`${apiUrl}/sms/sms-send/`, {
             method:'POST',
@@ -85,7 +106,7 @@ export const SmsForm = () => {
     }
 
 
-    const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'number') {
             setNumber(e.target.value);
         } else if (e.target.name === 'sms') {
@@ -102,6 +123,12 @@ export const SmsForm = () => {
         if (e.target.value === '2') {
             setSelect(false);
         }
+
+    }
+
+    const addNumberToSend = () => {
+        // navigate('/sms/add-number-to-send');
+        setIsAddingNumber(current => !current)
 
     }
 
@@ -124,29 +151,32 @@ export const SmsForm = () => {
                 </select>
 
                 {select
-                    ?   <select name='number' onChange={(e) => handleChange(e)}>
-                        <option  value="Wybierz numer" >Wybierz numer...</option>
-
-                        {
-                            smsBase.map(phone => (
-                                <option key={phone.id} value={phone.phone} >{phone.phone} | {phone.name} {phone.surname} | Firma: {phone.company}</option>
-                            ))
-                        }
-                    </select>
+                    ?   <input
+                            type="number"
+                            name='number'
+                            className="input-one-sms"
+                            placeholder="Wpisz numer telefonu..."
+                            value={form.name}
+                            onChange={(e) => handleChange(e)}
+                        />
 
 
                     :   <select name='group' onChange={(e) => handleChange(e)}>
-                        <option value="" hidden>Wybierz grupę...</option>
-                        <option value="Grupa 1">Grupa 1</option>
-                        <option value="Grupa 2">Grupa 2</option>
-                        <option value="Grupa 3">Grupa 3</option>
-                        <option value="Grupa 4">Grupa 4</option>
-                    </select>
+                            <option value="" hidden>Wybierz grupę...</option>
+                            <option value="Grupa 1">Grupa 1</option>
+                            <option value="Grupa 2">Grupa 2</option>
+                            <option value="Grupa 3">Grupa 3</option>
+                            <option value="Grupa 4">Grupa 4</option>
+                        </select>
 
                 }
 
+                <button type="button" onClick={addNumberToSend}>Dodaj inne numery z bazy</button>
+
+                {isAddingNumber ? <AddNumberToSend smsBase={smsBase} /> : null}
+
                 <textarea name='sms' onChange={(e) => handleChange(e)} placeholder="Wiadomość"></textarea>
-                <button>Wyślij</button>
+                <button type="submit">Wyślij</button>
             </form>
         </div>
     );

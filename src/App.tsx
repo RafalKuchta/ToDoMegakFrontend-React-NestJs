@@ -15,11 +15,16 @@ import {Home} from "./components/Home/Home";
 import {SmsForm} from "./components/Sms/SmsForm";
 import {AddNumber} from "./components/Sms/Add/AddNumber";
 import {UserContext} from "./context/message.context";
+import { PhonesContext } from './context/phones.context';
 
 export const App = () => {
     const [search, setSearch] = useState('');
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
+    const [phones, setPhones] = useState([{
+        phone: '',
+        id: '',
+    }]);
     const [{isLogined, email}, setIsLogined] = useState({
         isLogined: false,
         email: ''
@@ -45,6 +50,7 @@ export const App = () => {
             <SearchContext.Provider value={{search, setSearch}}>
                 <LoadingContext.Provider value={{loading, setLoading}}>
                     <UserContext.Provider value={{user, setUser}}>
+                        <PhonesContext.Provider value={{phones, setPhones}}>
                         <Routes>
                             <Route path="/*" element={<ErrorPage />}/>
                             <Route path="/register" element={<Register />}/>
@@ -104,36 +110,52 @@ export const App = () => {
                                 }
                             >
                             </Route>
-                            <Route
-                                path ='/sms'
-                                element = {
-                                    isLogined ? (
-                                        <>
-                                            <Header setIsLogined={{setIsLogined, email}} />
-                                            <SmsForm />
-                                        </>
-                                    )   : (
-                                        <Login setIsLogined={setIsLogined} />
-                                    )
-                                }
-                            >
-                            </Route>
-                            <Route
-                                path ='/sms/add'
-                                element = {
-                                    isLogined ? (
-                                        <>
-                                            <Header setIsLogined={{setIsLogined, email}} />
-                                            <AddNumber />
-                                        </>
-                                    )   : (
-                                        <Login setIsLogined={setIsLogined} />
-                                    )
-                                }
-                            >
-                            </Route>
+
+                                <Route
+                                    path ='/sms'
+                                    element = {
+                                        isLogined ? (
+                                            <>
+                                                <Header setIsLogined={{setIsLogined, email}} />
+                                                <SmsForm />
+                                            </>
+                                        )   : (
+                                            <Login setIsLogined={setIsLogined} />
+                                        )
+                                    }
+                                >
+                                </Route>
+                                <Route
+                                    path ='/sms/add-number-to-send'
+                                    element = {
+                                        isLogined ? (
+                                            <>
+                                                <Header setIsLogined={{setIsLogined, email}} />
+
+                                            </>
+                                        )   : (
+                                            <Login setIsLogined={setIsLogined} />
+                                        )
+                                    }
+                                >
+                                </Route>
+                                <Route
+                                    path ='/sms/add'
+                                    element = {
+                                        isLogined ? (
+                                            <>
+                                                <Header setIsLogined={{setIsLogined, email}} />
+                                                <AddNumber />
+                                            </>
+                                        )   : (
+                                            <Login setIsLogined={setIsLogined} />
+                                        )
+                                    }
+                                >
+                                </Route>
 
                         </Routes>
+                        </PhonesContext.Provider>
                     </UserContext.Provider>
                 </LoadingContext.Provider>
             </SearchContext.Provider>

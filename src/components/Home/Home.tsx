@@ -12,7 +12,7 @@ export const Home = ({setIsLogined}: any) => {
 
     return (
         <header className="header-home">
-           <h2>Witaj na mojej stronie :)</h2>
+           <h2>Witaj na stronie :)</h2>
         </header>
     );
 };

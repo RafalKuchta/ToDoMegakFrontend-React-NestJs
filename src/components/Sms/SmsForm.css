@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.wrapper-sms .add, .wrapper-sms select, .wrapper-sms textarea {
+.wrapper-sms .add, .wrapper-sms select, .wrapper-sms .input-one-sms, .wrapper-sms textarea {
     height: 100%;
     width: 100%;
     margin: 10px auto;
