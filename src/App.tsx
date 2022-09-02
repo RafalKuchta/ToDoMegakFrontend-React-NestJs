@@ -1,21 +1,24 @@
 import React, {useEffect, useState} from 'react';
 
-import { Header } from './components/layout/Header';
-import { Tasks } from './components/Tasks/Tasks';
-import { SearchContext } from './context/search.context';
-import { LoadingContext } from './context/loading.context';
-import { Routes, Route } from 'react-router-dom';
+import {Header} from './components/layout/Header';
+import {Tasks} from './components/Tasks/Tasks';
+import {SearchContext} from './context/search.context';
+import {LoadingContext} from './context/loading.context';
+import {Routes, Route} from 'react-router-dom';
 import {EditTask} from "./components/Tasks/Edit/EditTask";
-import { Login } from './components/Login/Login';
+import {Login} from './components/Login/Login';
 import {Register} from "./components/Register/Register";
 import {ErrorPage} from "./components/Error/ErrorPage";
-import {onCheck} from "./components/Login/Login.api";
 import {MessageComponent} from "./components/Messages/MessageComponent";
 import {Home} from "./components/Home/Home";
 import {SmsForm} from "./components/Sms/SmsForm";
 import {AddNumber} from "./components/Sms/Add/AddNumber";
 import {UserContext} from "./context/message.context";
-import { PhonesContext } from './context/phones.context';
+import {PhonesContext} from './context/phones.context';
+import {NumbersList} from './components/Numbers/Numbers-list';
+import {getAxiosData} from './components/Axios-api/Axios.api';
+import {Edit} from "./components/Numbers/Edit/Edit";
+import {GroupsContext} from './context/groups.context';
 
 export const App = () => {
     const [search, setSearch] = useState('');
@@ -23,21 +26,34 @@ export const App = () => {
     const [loading, setLoading] = useState(true);
     const [phones, setPhones] = useState([{
         phone: '',
+        name: '',
+        surname: '',
+        company: '',
+        position: '',
         id: '',
     }]);
-    const [{isLogined, email}, setIsLogined] = useState({
+    const [groups, setGroups] = useState([{
+        group: '',
+        id: '',
+    }]);
+    const [{isLogined, email, roles}, setIsLogined] = useState({
         isLogined: false,
-        email: ''
+        email: '',
+        roles: [''],
     });
 
     useEffect(() => {
         (async () => {
-            const response = await onCheck();
+            const response = await getAxiosData({
+                url: "/auth/check",
+                method: "GET",
+            });
 
-            if(response.ok){
+            if (response.ok) {
                 setIsLogined({
                     isLogined: response.ok,
-                    email: response.email
+                    email: response.email,
+                    roles: response.roles,
                 });
             }
             setUser(email)
@@ -51,110 +67,140 @@ export const App = () => {
                 <LoadingContext.Provider value={{loading, setLoading}}>
                     <UserContext.Provider value={{user, setUser}}>
                         <PhonesContext.Provider value={{phones, setPhones}}>
-                        <Routes>
-                            <Route path="/*" element={<ErrorPage />}/>
-                            <Route path="/register" element={<Register />}/>
-                            <Route
-                                path ='/'
-                                element = {
-                                    isLogined ? (
-                                        <>
-                                            <Header setIsLogined={{setIsLogined, email}} />
-                                            <Home setIsLogined={setIsLogined}/>
-                                        </>
-                                    )   : (
-                                        <Login setIsLogined={setIsLogined} />
-                                    )
-                                }
-                            >
-                            </Route>
-                            <Route
-                                path ='/todo'
-                                element = {
-                                    isLogined ? (
-                                        <>
-                                            <Header setIsLogined={{setIsLogined, email}} />
-                                            <Tasks setIsLogined={setIsLogined}/>
-                                        </>
-                                    )   : (
-                                        <Login setIsLogined={setIsLogined} />
-                                    )
-                                }
-                            >
-                            </Route>
-                            <Route
-                                path ='/edit/:id'
-                                element = {
-                                    isLogined ? (
-                                        <>
-                                            <Header setIsLogined={{setIsLogined, email}} />
-                                            <EditTask />
-                                        </>
-                                    )   : (
-                                        <Login setIsLogined={setIsLogined} />
-                                    )
-                                }
-                            >
-                            </Route>
-                            <Route
-                                path ='/chat'
-                                element = {
-                                    isLogined ? (
-                                        <>
-                                            <Header setIsLogined={{setIsLogined, email}} />
-                                            <MessageComponent email={email}/>
-                                        </>
-                                    )   : (
-                                        <Login setIsLogined={setIsLogined} />
-                                    )
-                                }
-                            >
-                            </Route>
+                            <GroupsContext.Provider value={{groups, setGroups}}>
+                                <Routes>
+                                    <Route path="/*" element={<ErrorPage/>}/>
+                                    <Route path="/register" element={<Register/>}/>
+                                    <Route
+                                        path='/'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <Home setIsLogined={setIsLogined}/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
+                                    {(roles.includes('admin')) ? (<Route
+                                        path='/todo'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <Tasks setIsLogined={setIsLogined}/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>) : null}
+                                    <Route
+                                        path='/edit/:id'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <EditTask setIsLogined={email}/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
+                                    <Route
+                                        path='/chat'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <MessageComponent email={email}/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
+                                    <Route
+                                        path='/numbers-list'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <NumbersList setIsLogined={roles}/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
+                                    <Route
+                                        path='/numbers-list/edit/:id'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <Edit/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
 
-                                <Route
-                                    path ='/sms'
-                                    element = {
-                                        isLogined ? (
-                                            <>
-                                                <Header setIsLogined={{setIsLogined, email}} />
-                                                <SmsForm />
-                                            </>
-                                        )   : (
-                                            <Login setIsLogined={setIsLogined} />
-                                        )
-                                    }
-                                >
-                                </Route>
-                                <Route
-                                    path ='/sms/add-number-to-send'
-                                    element = {
-                                        isLogined ? (
-                                            <>
-                                                <Header setIsLogined={{setIsLogined, email}} />
+                                    <Route
+                                        path='/sms'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <SmsForm/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
+                                    <Route
+                                        path='/sms/add-number-to-send'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
 
-                                            </>
-                                        )   : (
-                                            <Login setIsLogined={setIsLogined} />
-                                        )
-                                    }
-                                >
-                                </Route>
-                                <Route
-                                    path ='/sms/add'
-                                    element = {
-                                        isLogined ? (
-                                            <>
-                                                <Header setIsLogined={{setIsLogined, email}} />
-                                                <AddNumber />
-                                            </>
-                                        )   : (
-                                            <Login setIsLogined={setIsLogined} />
-                                        )
-                                    }
-                                >
-                                </Route>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
+                                    <Route
+                                        path='/sms/add'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <AddNumber/>
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    >
+                                    </Route>
 
-                        </Routes>
+                                </Routes>
+                            </GroupsContext.Provider>
                         </PhonesContext.Provider>
                     </UserContext.Provider>
                 </LoadingContext.Provider>
