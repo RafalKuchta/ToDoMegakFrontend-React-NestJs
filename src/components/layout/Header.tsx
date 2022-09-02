@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import './Header.css';
-import {onLogout} from "../Login/Login.api";
 import {useNavigate} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from 'react-router-dom';
+import {getAxiosData} from "../Axios-api/Axios.api";
 
 export const Header = ({setIsLogined}: any) => {
     const [isActive, setIsActive] = useState(false);
@@ -16,27 +16,31 @@ export const Header = ({setIsLogined}: any) => {
     };
 
     const logout = async () => {
-        await onLogout();
+        await getAxiosData({
+            url: "/auth/logout",
+            method: "GET",
+        });
         setIsLogined.setIsLogined({
             isLogined: false,
             email: "",
         });
-        navigate('/', {replace: true})
+        navigate('/sms', {replace: true})
     }
 
     return (
         <header className="header">
             <div className="nav">
-                <NavLink to='/' className="logo">MegaApp</NavLink>
-                <NavLink to='/todo' className={({ isActive }) => (isActive ? "todo active" : "todo")}>To Do</NavLink>
+                <NavLink to='/sms' className="logo">GBA Polska</NavLink>
+                <NavLink to='/sms' className={({ isActive }) => (isActive ? "sms active" : "sms")}>Bramka Sms</NavLink>
+                <NavLink to='/numbers-list' className={({ isActive }) => (isActive ? "numbers-list active" : "numbers-list")}>Lista numerów</NavLink>
                 <NavLink to='/chat' className={({ isActive }) => (isActive ? "chat active" : "chat")}>Chat</NavLink>
-                <NavLink to='/sms' className={({ isActive }) => (isActive ? "chat active" : "chat")}>Sms</NavLink>
+                {setIsLogined.roles === 'admin' ? <NavLink to='/todo' className={({isActive}) => (isActive ? "todo active" : "todo")}>To Do</NavLink> : null}
 
             </div>
             <div className='user'
                  unselectable="on"
             >
-                <p onClick={handleClick}>{setIsLogined.email}
+                <p onClick={handleClick}>{setIsLogined.email} ({setIsLogined.roles})
                     <FontAwesomeIcon className='ico' icon={faAngleDown}/>
                 </p>
 

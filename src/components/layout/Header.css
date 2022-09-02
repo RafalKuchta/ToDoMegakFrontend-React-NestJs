@@ -26,7 +26,7 @@ a.todo {
     color: black;
     padding: 5px;
     text-decoration: none;
-    margin: 10px 5px 10px 20px;
+    margin: 10px 5px;
 }
 
 .todo:hover {
@@ -34,18 +34,22 @@ a.todo {
     border-bottom: 1px solid #80CFA9;
 }
 
-a.chat {
+a.chat, a.sms, a.numbers-list {
     color: black;
     padding: 5px;
     text-decoration: none;
     margin: 10px 5px;
 }
 
+a.sms {
+    margin: 10px 5px 10px 30px;
+}
+
 .active {
     font-weight: bold;
 }
 
-.chat:hover {
+.chat:hover, .sms:hover, .numbers-list:hover {
     font-weight: bold;
     border-bottom: 1px solid #80CFA9;
 }
@@ -63,6 +67,7 @@ a.chat {
 .user button {
     margin-top: 10px;
     width: 100%;
+    height: 30px;
     overflow: hidden;
 }
 
