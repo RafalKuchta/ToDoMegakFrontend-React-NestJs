@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import './Messages.css';
-import {onGetMessages} from "./Messenger.api";
 import {LoadingContext} from "../../context/loading.context";
 import {UserContext} from "../../context/message.context";
+import {getAxiosData} from "../Axios-api/Axios.api";
 
 interface ChatEntity {
     id: string;
@@ -14,14 +14,17 @@ interface ChatEntity {
 export const Messages = ({message}: { message: string[] }) => {
     const {loading, setLoading} = useContext(LoadingContext);
     const {user, setUser} = useContext(UserContext);
-    const [messages, setMessagess] = useState<ChatEntity[]>([]);
+    const [messages, setMessages] = useState<ChatEntity[]>([]);
 
     const bottomRef = useRef<null | HTMLDivElement>(null);
 
     useEffect(() => {
         (async () => {
-            const response = await onGetMessages();
-            setMessagess(response);
+            const response = await getAxiosData({
+                url: "/chat",
+                method: "GET",
+            });
+            setMessages(response);
         })();
         setLoading(false);
     }, []);
