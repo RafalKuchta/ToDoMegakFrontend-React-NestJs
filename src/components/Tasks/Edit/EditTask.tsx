@@ -5,9 +5,9 @@ import {LoadingContext} from "../../../context/loading.context";
 
 import './EditTask.css';
 import {useNavigate, useParams} from "react-router";
-import {apiUrl} from "../../../config/api";
+import {getFetchDataId} from "../../Fetch-api/Fetch-api";
 
-export const EditTask = () => {
+export const EditTask = ({setIsLogined}: any) => {
     const {loading, setLoading} = useContext(LoadingContext);
     const [form, setForm] = useState({name:""});
 
@@ -16,16 +16,11 @@ export const EditTask = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${apiUrl}/todo/${id}`, {
+            const res = await getFetchDataId({
+                url: '/todo/',
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': 'http://localhost:3001',
-                },
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
-            });
+                id,
+            })
             const data = await res.json();
 
             setForm({name: data.name});
@@ -39,15 +34,10 @@ export const EditTask = () => {
 
         try {
             navigate('/todo', {replace: true})
-            await fetch(`${apiUrl}/todo/${id}`, {
+            await getFetchDataId({
+                url: '/todo/',
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': 'http://localhost:3001',
-                },
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
+                id,
                 body: JSON.stringify({
                     ...form,
                 }),
@@ -66,9 +56,9 @@ export const EditTask = () => {
     };
 
     return (
-        <div className="wrapper">
+        <div className="wrapper-edit-task">
             {(loading) ? <Spinner /> : null}
-            <form className="add-task" onSubmit={editToDo}>
+            <form className="edit-task" onSubmit={editToDo}>
                 <h2>Edytuj zadanie</h2>
                 <input
                     type="text"
