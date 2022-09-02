@@ -5,6 +5,14 @@
     width: 50%;
 }
 
+.input-message input {
+    height: 30px;
+}
+
+.input-message button {
+    height: 30px;
+}
+
 .messages-page {
     width: 800px;
     margin: 0 auto 100px auto;
