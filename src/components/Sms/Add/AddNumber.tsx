@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
 import './AddNumber.css';
-import {useNavigate} from "react-router";
-import {apiUrl} from "../../../config/api";
 import {Done} from "../../common/Done/Done";
+import {getFetchData} from "../../Fetch-api/Fetch-api";
 
 export const AddNumber = () => {
     const [select, setSelect] = useState(true);
     const [done, setDone] = useState(false)
-    const [number, setNumber] = useState('');
-    const [group, setGroup] = useState({});
     const [form, setForm] = useState({
         name: '',
         surname: '',
+        position: '',
         company: '',
         phone: '',
         group: '',
@@ -21,15 +19,9 @@ export const AddNumber = () => {
         setDone(false)
         event.preventDefault();
 
-        await fetch(`${apiUrl}/sms`, {
+        getFetchData({
+            url: '/sms/add-phone',
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': `${apiUrl}`,
-            },
-            referrerPolicy: 'no-referrer',
-            credentials: 'include',
-            mode: 'cors',
             body: JSON.stringify(form)
         })
             .then(resp => resp.json())
@@ -41,9 +33,8 @@ export const AddNumber = () => {
             )
     }
 
-
-    if(done) {
-        return <Done text={`Numer ${form.phone} dodany do bazy.`}/>
+    if (done) {
+        return <Done message={`Numer ${form.phone} dodany do bazy.`} text="Powrót" to={"/sms"}/>
     }
 
     const updateForm = (key: string, value: any) => {
@@ -52,15 +43,6 @@ export const AddNumber = () => {
             [key]: value,
         }));
     };
-
-    const handleChange = (event: any) => {
-        console.log(event.target.name, event.target.value)
-        if (event.target.name === 'number') {
-            setNumber(event.target.value);
-        } else if (event.target.name === 'group') {
-            setGroup(event.target.value);
-        }
-    }
 
     const handleChangeSelect = (event: any) => {
         if (event.target.value === '1') {
@@ -71,10 +53,9 @@ export const AddNumber = () => {
         }
     }
 
-
     return (
         <div className="wrapper-add-phones">
-            <h3>Dodaj numer do bazy!</h3>
+            <h2>Dodaj numer do bazy!</h2>
 
             <form onSubmit={addNumber}>
                 <label>Wybierz:</label>
@@ -94,18 +75,28 @@ export const AddNumber = () => {
                             value={form.name}
                             onChange={e => updateForm('name', e.target.value)}
                             placeholder="Imię"
+                            required
                         />
                         <input
                             name='surname'
                             value={form.surname}
                             onChange={e => updateForm('surname', e.target.value)}
                             placeholder="Nazwisko"
+                            required
                         />
                         <input
                             name='company'
                             value={form.company}
                             onChange={e => updateForm('company', e.target.value)}
-                            placeholder="Firma"
+                            placeholder="Firma / lokalizacja"
+                            required
+                        />
+                        <input
+                            name='position'
+                            value={form.position}
+                            onChange={e => updateForm('position', e.target.value)}
+                            placeholder="Stanowisko"
+                            required
                         />
                         <input
                             name='phone'
@@ -135,6 +126,7 @@ export const AddNumber = () => {
                             value={form.name}
                             onChange={e => updateForm('name', e.target.value)}
                             placeholder="Imię"
+                            required
                         />
                         <input
                             name='surname'
@@ -147,17 +139,26 @@ export const AddNumber = () => {
                             value={form.company}
                             onChange={e => updateForm('company', e.target.value)}
                             placeholder="Firma"
+                            required
+                        />
+                        <input
+                            name='position'
+                            value={form.position}
+                            onChange={e => updateForm('position', e.target.value)}
+                            placeholder="Stanowisko"
+                            required
                         />
                         <input
                             name='phone'
                             value={form.phone}
                             onChange={e => updateForm('phone', e.target.value)}
                             placeholder="Numer Telefonu"
+                            required
                         />
                     </div>
                 }
 
-                <button>Wyślij</button>
+                <button>Dodaj</button>
             </form>
         </div>
     );

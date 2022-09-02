@@ -5,7 +5,7 @@ import {io, Socket} from "socket.io-client";
 import {MessageInput} from "./MessageInput";
 import {Messages} from "./Messages";
 
-export const MessageComponent = ({email}: {email: string }) => {
+export const MessageComponent = ({email}: { email: string }) => {
     const [socket, setSocket] = useState<Socket>();
     const [messages, setMessages] = useState<string[]>([]);
     const [user, setUSer] = useState<string>('');
@@ -35,7 +35,7 @@ export const MessageComponent = ({email}: {email: string }) => {
     return (
         <div className="messages-page">
             <h2>Chat</h2>
-            <Messages message={messages} />
+            <Messages message={messages}/>
             <MessageInput send={send}/>
         </div>
 

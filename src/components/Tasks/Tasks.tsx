@@ -5,13 +5,13 @@ import {SearchContext} from "../../context/search.context";
 import {Link} from "react-router-dom";
 
 import {LoadingContext} from "../../context/loading.context";
-import {TodoEntity} from 'types';
+import {TodoEntity} from '../../../../backend-nest/src/types';
 import './Tasks.css';
-import {apiUrl} from "../../config/api";
 import {Search} from "./Search/Search";
 import {AddForm} from "./Add/AddForm";
+import {getFetchDataId} from "../Fetch-api/Fetch-api";
 
-export const Tasks = ({setIsLogined}:any) => {
+export const Tasks = ({setIsLogined}: any) => {
     const {search} = useContext(SearchContext);
     const {loading, setLoading} = useContext(LoadingContext);
     const [todos, setTodos] = useState<TodoEntity[]>([]);
@@ -19,20 +19,14 @@ export const Tasks = ({setIsLogined}:any) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${apiUrl}/todo/search/${search}`, {
-                method: 'get',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': `${apiUrl}`,
-                },
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
-
-            });
+            const res = await getFetchDataId({
+                url: '/todo/search/',
+                method: 'GET',
+                id: search,
+            })
             const data = await res.json();
 
-            if(data.statusCode === 401) {
+            if (data.statusCode === 401) {
                 setIsLogined(false)
             }
 
@@ -51,19 +45,14 @@ export const Tasks = ({setIsLogined}:any) => {
     const deleteTask = (id: string) => {
         setLoading(true);
         (async () => {
-            await fetch(`${apiUrl}/todo/${id}`, {
+            await getFetchDataId({
+                url: '/todo/',
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': `${apiUrl}`,
-                },
+                id,
                 body: JSON.stringify({
                     id,
                 }),
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
-            });
+            })
         })();
 
     };
@@ -72,40 +61,30 @@ export const Tasks = ({setIsLogined}:any) => {
     const doneTask = (id: string) => {
         setLoading(true);
         (async () => {
-            await fetch(`${apiUrl}/todo/${id}`, {
+            await getFetchDataId({
+                url: '/todo/',
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': `${apiUrl}`,
-                },
+                id,
                 body: JSON.stringify({
                     id,
                     completed: true,
                 }),
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
-            });
+            })
         })();
     };
 
     const backTask = (id: string) => {
         setLoading(true);
         (async () => {
-            await fetch(`${apiUrl}/todo/${id}`, {
+            await getFetchDataId({
+                url: '/todo/',
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': `${apiUrl}`,
-                },
+                id,
                 body: JSON.stringify({
                     id,
                     completed: false,
                 }),
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
-            });
+            })
         })();
     };
 
@@ -113,8 +92,8 @@ export const Tasks = ({setIsLogined}:any) => {
     return (
         <>
             <h2>To Do Lista</h2>
-            <Search />
-            <AddForm />
+            <Search/>
+            <AddForm/>
             <h3>Zadania do zrobienia</h3>
             {
                 todos.map(todo => (
@@ -131,9 +110,9 @@ export const Tasks = ({setIsLogined}:any) => {
 
                                 <Link to={`/edit/${todo.id}`} id={todo.id}>
                                     <FontAwesomeIcon
-                                    icon={faPenToSquare}
-                                    className="icon-edit"
-                                />
+                                        icon={faPenToSquare}
+                                        className="icon-edit"
+                                    />
                                 </Link>
 
                                 <FontAwesomeIcon

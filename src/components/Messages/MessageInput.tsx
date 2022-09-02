@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
-import {onSendMessage} from "./Messenger.api";
 import {LoadingContext} from "../../context/loading.context";
+import {getAxiosData} from "../Axios-api/Axios.api";
 
 export const MessageInput = ({send}: { send: (value: string) => void}) => {
     const {loading, setLoading} = useContext(LoadingContext);
@@ -10,7 +10,11 @@ export const MessageInput = ({send}: { send: (value: string) => void}) => {
         e.preventDefault();
         setLoading(true);
 
-        await onSendMessage({message: value})
+        await getAxiosData({
+            message: value,
+            url: "/chat",
+            method: "POST",
+        });
 
         setValue("");
     }

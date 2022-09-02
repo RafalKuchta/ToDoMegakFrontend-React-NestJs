@@ -1,18 +1,53 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useContext, useEffect, useState} from 'react';
 import {useNavigate} from "react-router";
-import  './SmsForm.css';
-import {apiUrl} from "../../config/api";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export const SmsForm = () => {
+import './SmsForm.css';
+import {AddNumberToSend} from "./Add-number-to-send/AddNumberToSend";
+import {PhonesContext} from "../../context/phones.context";
+import {Toast} from "../Toast/Toast";
+import {getAxiosData} from "../Axios-api/Axios.api";
+import {GroupsContext} from "../../context/groups.context";
+import {AddGroupToSend} from "./Add-group-to-send/AddGroupToSend";
+import {getFetchData} from "../Fetch-api/Fetch-api";
+
+export interface SmsInBase {
+    id: string,
+    phone: string,
+    name: string,
+    surname: string,
+    position: string,
+    company: string,
+}
+
+export interface GroupsInBase {
+    id: string,
+    name: string,
+}
+
+export const SmsForm = (props: any) => {
     const [select, setSelect] = useState(true);
+    const [done, setDone] = useState(false)
     const [sms, setSms] = useState('');
     const [number, setNumber] = useState('');
-    const [group, setGroup] = useState({});
-    const [smsBase, setSmsBase] = useState([{
+    const {phones, setPhones} = useContext(PhonesContext);
+    const {groups, setGroups} = useContext(GroupsContext);
+    const [groupsBase, setGroupsBase] = useState<GroupsInBase[]>([{
         id: '',
         name: '',
+    }]);
+    const [smsBase, setSmsBase] = useState<SmsInBase[]>([{
+        id: '',
+        name: '',
+        surname: '',
+        company: '',
+        position: '',
         phone: '',
     }]);
+
+    const [isAddingNumber, setIsAddingNumber] = useState(false);
+    const [isAddingGroup, setIsAddingGroup] = useState(false);
 
     const navigate = useNavigate();
 
@@ -20,65 +55,64 @@ export const SmsForm = () => {
         setSmsBase([]);
         (async () => {
             try {
-                const res = await fetch(`${apiUrl}/sms/get-all`, {
-                    method: 'get',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': `${apiUrl}`,
-                    },
-                    referrerPolicy: 'no-referrer',
-                    credentials: 'include',
-                    mode: 'cors',
+                const numbers = await getAxiosData({
+                    url: "/sms/get-all",
+                    method: "GET",
                 });
+                setSmsBase(numbers);
 
-                const data = await res.json();
-
-                setSmsBase(data);
-
+                const groups = await getAxiosData({
+                    url: "/sms/groups/get-all",
+                    method: "GET",
+                });
+                setGroupsBase(groups);
             } catch (e) {
-                // navigate('/login');
                 throw (e as Error).message;
             }
-
         })();
-
-
     }, [])
 
-    const sendSms = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
+    const sendSms = async (e: SyntheticEvent) => {
+        e.preventDefault();
 
         let smsObj = {
             mobile_number: '+48' + number,
             message: sms,
+            phones
         }
 
         let groupObj = {
-            mobile_numbers: group,
+            mobile_number: '+48' + number,
             message: sms,
+            groups
         }
 
-        fetch(`${apiUrl}/sms_messages/`, {
-            method:'POST',
-            headers: {
-                'content-type': 'application/json',
-                accepts: "application/json"
-            },
-            body: JSON.stringify(select ? smsObj : groupObj)
-        })
+        Toast('Wysyłanie wiadomości...');
+
+        getFetchData({
+            url: '/sms/sms-send/',
+            method: 'POST',
+            body: JSON.stringify(select ? smsObj : groupObj)})
             .then(resp => resp.json())
-            .then(resp => console.log(resp))
+            .then(resp => {
+                    if (resp.message) {
+                        setDone(true);
+                        Toast('Wiadomości wysłana.');
+                        setNumber('');
+                        setSms('');
+                        setIsAddingNumber(false);
+                        setIsAddingGroup(false);
+                    }
+                }
+            )
+    };
 
-    }
 
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.name === 'number') {
-            setNumber(event.target.value);
-        } else if (event.target.name === 'sms') {
-            setSms(event.target.value);
-        } else if (event.target.name === 'group') {
-            setGroup(event.target.value);
+    const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === 'number') {
+            setNumber(e.target.value);
+        } else if (e.target.name === 'sms') {
+            setSms(e.target.value);
         }
     }
 
@@ -89,7 +123,14 @@ export const SmsForm = () => {
         if (e.target.value === '2') {
             setSelect(false);
         }
+    }
 
+    const addNumberToSend = () => {
+        setIsAddingNumber(current => !current)
+    }
+
+    const addGroupToSend = () => {
+        setIsAddingGroup(current => !current)
     }
 
     const addNumber = () => {
@@ -97,42 +138,53 @@ export const SmsForm = () => {
     }
 
 
-
     return (
         <div className="wrapper-sms">
+            <ToastContainer autoClose={2000}/>
             <h2>Bramka SMS!</h2>
             <p>
                 <button onClick={addNumber}>Dodaj numer do bazy</button>
             </p>
-            <form onSubmit={() =>sendSms}>
+            <form onSubmit={(e) => sendSms(e)}>
 
                 <select name='select' onChange={(e) => handleChangeSelect(e)}>
                     <option value="1">Pojedyńczy sms</option>
                     <option value="2">Do grupy</option>
                 </select>
+                <input
+                    type="number"
+                    name='number'
+                    className="input-one-sms"
+                    placeholder="Wpisz numer telefonu..."
+                    value={number}
+                    onChange={(e) => handleChange(e)}
+                />
 
-                {select
-                    ?   <select name='group' onChange={() => handleChange}>
-                        {
-                            smsBase.map(phone => (
-                                <option key={phone.id} value={phone.name} >{phone.phone}</option>
-                            ))
-                        }
-                    </select>
+                {select ? <button type="button" className="button-add" onClick={addNumberToSend}>Dodaj inne numery z
+                        bazy</button>
+                    : <button type="button" className="button-add" onClick={addGroupToSend}>Wybierz grupę</button>}
 
+                {isAddingNumber && select
+                    ? <AddNumberToSend
+                        smsBase={smsBase}
+                    />
+                    : null}
 
-                    :   <select name='group' onChange={() => handleChange}>
-                        <option value="" hidden>Wybierz grupę...</option>
-                        <option value="Grupa 1">Grupa 1</option>
-                        <option value="Grupa 2">Grupa 2</option>
-                        <option value="Grupa 3">Grupa 3</option>
-                        <option value="Grupa 4">Grupa 4</option>
-                    </select>
+                {isAddingGroup && !select
+                    ? <AddGroupToSend
+                        groupsBase={groupsBase}
+                    />
+                    : null}
 
-                }
-
-                <textarea name='sms' onChange={() => handleChange} placeholder="Wiadomość"></textarea>
-                <button>Wyślij</button>
+                <textarea
+                    name='sms'
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Wiadomość... maksymalnie 160 znaków!"
+                    maxLength={160}
+                    value={sms}
+                    required
+                />
+                <button type="submit">Wyślij</button>
             </form>
         </div>
     );
