@@ -6,10 +6,13 @@
 }
 
 .addNumberToSend--paragraf {
+    display: flex;
+    justify-content: space-between;
     text-align: center;
     height: 30px;
 }
 
 .addNumberToSend--checkbox {
     width: 20px;
+    margin: 0;
 }
