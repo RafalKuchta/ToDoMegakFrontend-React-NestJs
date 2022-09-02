@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 
 import './Register.css';
-import {onRegister} from "../Login/Login.api";
+import {getAxiosData} from "../Axios-api/Axios.api";
+import {Toast} from "../Toast/Toast";
+import {ToastContainer} from "react-toastify";
 import {useNavigate} from "react-router";
 
 
@@ -13,22 +15,27 @@ export const Register = () => {
     });
     const [error, setError] = useState('');
 
-    const navigate = useNavigate();
-
     const register = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError('');
 
         if( pwd === repeatPwd){
-            const response = await onRegister({
+            const response = await getAxiosData({
                 email,
                 pwd,
+              url: "/user/register",
+              method: "POST",
             })
 
             if (response.error === "Request failed with status code 409") {
                 response.error = "Użytkownik już istnieje."
             } else {
-                // alert(`Uzytkownik ${email} dodany do bazy.`)
-                navigate('/', {replace: true})
+                Toast(`Uzytkownik ${email} dodany do bazy.`);
+                setRegisterData({
+                    email: '',
+                    pwd: '',
+                    repeatPwd: '',
+                });
             }
 
             if(response && response.error){
@@ -40,44 +47,51 @@ export const Register = () => {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <>
             <h2 className="register">Rejestracja użytkownika</h2>
+            <ToastContainer autoClose={2000}/>
             <form className="register-form" onSubmit={register}>
-                <label htmlFor="email">Email</label>
                 <input
                     value={email}
                     name="email"
+                    placeholder='Email'
                     onChange={(e) => setRegisterData({
                         email: e.target.value,
                         pwd,
                         repeatPwd,
                     })}
+                    required
                 />
-                <label htmlFor="pwd">Hasło</label>
                 <input
                     value={pwd}
                     type="password"
                     name="pwd"
+                    placeholder='Hasło'
                     onChange={(e) => setRegisterData({
                         email,
                         pwd: e.target.value,
                         repeatPwd,
                     })}
+                    required
                 />
-                <label htmlFor="pwd">Powtórz hasło</label>
                 <input
                     value={repeatPwd}
                     type="password"
                     name="pwd"
+                    placeholder='Powtórz hasło'
                     onChange={(e) => setRegisterData({
                         email,
                         pwd,
                         repeatPwd: e.target.value,
                     })}
+                    required
                 />
                 <button type="submit">Zapisz</button>
                 {error.length > 0 && <p>{error}</p>}
+                <button onClick={() => navigate('/sms', {replace: true})}>Powrót do strony głównej</button>
             </form>
         </>
 
