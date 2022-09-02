@@ -1,11 +1,16 @@
-.wrapper {
+.wrapper-add-task {
     height: 50px;
 }
 
-.add-task {
-    height: 100%;
+.wrapper-add-task--add-task {
+    display: flex;
+    height: 30px;
     width: 60%;
-    margin: 10px auto;
+    margin: 0 auto;
+}
+
+.add-task--input {
+    height: 100%;
 }
 
 input:focus {
@@ -14,7 +19,7 @@ input:focus {
 
 
 @Media (max-width: 600px){
-    .add-task {
+    .awrapper-add-task--add-task {
         width: 85%;
         margin: 0 auto;
     }

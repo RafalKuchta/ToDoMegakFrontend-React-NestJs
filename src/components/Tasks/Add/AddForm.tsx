@@ -4,7 +4,7 @@ import {LoadingContext} from "../../../context/loading.context";
 
 import './AddForm.css';
 import {Spinner} from "../../common/Spinner/Spinner";
-import {apiUrl} from "../../../config/api";
+import {getFetchData} from "../../Fetch-api/Fetch-api";
 
 export const AddForm = () => {
     const {loading, setLoading} = useContext(LoadingContext);
@@ -18,18 +18,12 @@ export const AddForm = () => {
         setLoading(true);
 
         try {
-            await fetch(`${apiUrl}/todo`, {
+            await getFetchData({
+                url: '/todo',
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': `${apiUrl}`,
-                },
                 body: JSON.stringify({
                     ...form,
                 }),
-                referrerPolicy: 'no-referrer',
-                credentials: 'include',
-                mode: 'cors',
             })
             setForm({
                 name: '',
@@ -48,12 +42,13 @@ export const AddForm = () => {
     };
 
     return (
-        <div className="wrapper">
+        <div className="wrapper-add-task">
             {(loading) ? <Spinner /> : null}
-            <form className="add-task" onSubmit={saveToDo}>
+            <form className="wrapper-add-task--add-task" onSubmit={saveToDo}>
                 <input
                     type="text"
                     name="name"
+                    className="add-task--input"
                     required
                     maxLength={1000}
                     placeholder="Dodaj zadanie..."

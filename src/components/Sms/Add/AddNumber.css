@@ -5,6 +5,8 @@
 
 .wrapper-add-phones button {
     width: 100%;
+    height: 30px;
+    margin-top: 10px;
 }
 
 .wrapper-add-phones label {
@@ -14,7 +16,8 @@
 
 .wrapper-add-phones input {
     width: 100%;
-    margin: 10px 0 20px 0;
+    height: 30px;
+    margin: 10px 0 10px 0;
     border: 1px solid #80CFA9;
 }
 
