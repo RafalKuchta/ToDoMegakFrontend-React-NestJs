@@ -16,9 +16,36 @@
     background: white;
 }
 
+.login-form--input-pass {
+    position: relative;
+    display: flex;
+    background-color: white;
+}
+
+
 .login-form input {
     width: 100%;
+    height: 30px;
     border-right: 1px solid #80CFA9;
+    border-radius: 5px;
+}
+
+
+.div-icon-faEye {
+    position: absolute;
+    height: 30px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-45%);
+    background-color: transparent;
+}
+
+.div-email-input {
+    background-color: transparent;
+}
+
+.icon-faEye, .faEyeSlash {
+    color: gray;
 }
 
 .submit {
@@ -30,6 +57,8 @@
 
 .login-form button {
     width: 40%;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .login-submit {

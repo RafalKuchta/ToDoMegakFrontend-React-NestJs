@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import './Login.css'
-import {onLogin} from "./Login.api";
-import {Link} from "react-router-dom";
 
-export const Login = ({setIsLogined}:any) => {
+import {toast, ToastContainer} from "react-toastify";
+import {getAxiosData} from "../Axios-api/Axios.api";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+
+export const Login = ({setIsLogined}: any) => {
+    const [passwordType, setPasswordType] = useState("password");
     const [{email, pwd}, setCredentials] = useState({
         email: "",
         pwd: "",
@@ -15,55 +19,78 @@ export const Login = ({setIsLogined}:any) => {
         e.preventDefault();
 
         setError('')
-        const response = await onLogin({
+        const response = await getAxiosData({
             email,
             pwd,
+            url: "/auth/login",
+            method: "POST",
         });
 
-        if(response.ok){
+        if (response.ok) {
             setIsLogined({
                 isLogined: response.ok,
                 email: response.email,
             });
         }
 
-        if(response && response.error) {
+        if (response && response.error) {
             setError(response.error)
+            toast.error('Login lub hasło są błędne!', {
+                position: toast.POSITION.BOTTOM_RIGHT,
+                className: 'foo-bar'
+            });
         }
+    }
 
+    const togglePassword =()=>{
+        if(passwordType==="password")
+        {
+            setPasswordType("text")
+            return;
+        }
+        setPasswordType("password")
     }
 
     return (
         <>
             <h2 className="login">Zaloguj</h2>
             <form className="login-form" onSubmit={login}>
-                <label htmlFor="username">Email</label>
-                <input
-                    type="email"
-                    value={email}
-                    required
-                    onChange={(e) => setCredentials({
-                        email: e.target.value,
-                        pwd,
-                    })}
-                />
-
-                <label htmlFor="password">Hasło</label>
-                <input
-                    type="password"
-                    required
-                    onChange={(e) => setCredentials({
-                        email,
-                        pwd: e.target.value,
-                    })}
-                />
-                <div className="login-submit">
-                    <button type="submit">Zaloguj</button> <Link to="/register">Zarejestruj się</Link>
+                <div className='div-email-input'>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        onChange={(e) => setCredentials({
+                            email: e.target.value,
+                            pwd,
+                        })}
+                    />
                 </div>
 
-                {error.length > 0 && <p>{error}</p>}
+                <div className="login-form--input-pass">
+                    <input
+                        type={passwordType}
+                        placeholder="Hasło"
+                        onChange={(e) => setCredentials({
+                            email,
+                            pwd: e.target.value,
+                        })}
+                    />
+                    <div className="div-icon-faEye">
+                        <FontAwesomeIcon
+                            icon={passwordType==="password" ? faEye : faEyeSlash}
+                            className="icon-faEye"
+                            onClick={togglePassword}
+                        />
+                    </div>
 
+                </div>
 
+                <div className="login-submit">
+                    <button type="submit">Zaloguj</button>
+                    {/*<Link to="/register">Zarejestruj się</Link>*/}
+                </div>
+
+                {error.length > 0 && <ToastContainer autoClose={5000}/>}
             </form>
 
         </>
