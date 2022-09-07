@@ -23,9 +23,11 @@ export const Header = ({setIsLogined}: any) => {
         setIsLogined.setIsLogined({
             isLogined: false,
             email: "",
+            role: '',
         });
         navigate('/sms', {replace: true})
     }
+
 
     return (
         <header className="header">
