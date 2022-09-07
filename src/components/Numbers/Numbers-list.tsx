@@ -53,28 +53,32 @@ export const NumbersList = ({setIsLogined}: any) => {
             <div className="list-numbers">
               <ToastContainer autoClose={5000}/>
                 <table>
+                  <thead>
                     <tr>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Stanowisko</th>
-                        <th>Firma / Lokalizacja</th>
-                        <th>Numer</th>
-                        <th>Grupa</th>
+                      <th>Nazwisko</th>
+                      <th>Imię</th>
+                      <th>Stanowisko</th>
+                      <th>Firma / Lokalizacja</th>
+                      <th>Numer</th>
+                      <th>Grupa</th>
                     </tr>
+                  </thead>
                     {numbers
                         .sort((a: any, b: any) => a.surname > b.surname ? 1 : -1)
-                        .map((number: any) => (
+                        .map((number: any, i) => (
+                          <tbody key={i}>
                             <tr
-                                key={number.id}
-                                onClick={() => onChangeEdit((e: any) => e.target.value, number.id)}
+                              onClick={() => onChangeEdit((e: any) => e.target.value, number.id)}
                             >
-                                <td>{number.surname}</td>
-                                <td>{number.name}</td>
-                                <td>{number.position}</td>
-                                <td>{number.company}</td>
-                                <td>{number.phone}</td>
-                                <td>{number.groups ? number.groups.name : "Brak"}</td>
+                              <td>{number.surname}</td>
+                              <td>{number.name}</td>
+                              <td>{number.position}</td>
+                              <td>{number.company}</td>
+                              <td>{number.phone}</td>
+                              <td>{number.groups ? number.groups.name : "Brak"}</td>
                             </tr>
+                          </tbody>
+
                         ))}
                 </table>
             </div>
