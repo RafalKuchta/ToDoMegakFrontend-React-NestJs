@@ -1,7 +1,4 @@
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# sms
 
 ## Available Scripts
 
@@ -12,8 +9,19 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+###Login to app
+http://localhost:3000/ \
+email: admin@example.pl\
+Hasło: 1234
+
+![img.png](img.png)
+
+###New user registration
+http://localhost:3000/register 
+
+![img_1.png](img_1.png)
+
+The new user is assigned the role of Reader by default. In order for the user to have admin access, the relation in the database must be changed to 'admin'.
 
 ### `npm test`
 
