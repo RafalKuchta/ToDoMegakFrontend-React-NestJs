@@ -11,6 +11,7 @@ import {getAxiosData} from "../Axios-api/Axios.api";
 import {GroupsContext} from "../../context/groups.context";
 import {AddGroupToSend} from "./Add-group-to-send/AddGroupToSend";
 import {getFetchData} from "../Fetch-api/Fetch-api";
+import {ToastError} from "../Toast/Toast-error";
 
 export interface SmsInBase {
     id: string,
@@ -37,17 +38,11 @@ export const SmsForm = (props: any) => {
         id: '',
         name: '',
     }]);
-    const [smsBase, setSmsBase] = useState<SmsInBase[]>([{
-        id: '',
-        name: '',
-        surname: '',
-        company: '',
-        position: '',
-        phone: '',
-    }]);
+    const [smsBase, setSmsBase] = useState([{}]);
 
     const [isAddingNumber, setIsAddingNumber] = useState(false);
     const [isAddingGroup, setIsAddingGroup] = useState(false);
+    const [showAll, setShowAll] =useState(false);
 
     const navigate = useNavigate();
 
@@ -75,16 +70,28 @@ export const SmsForm = (props: any) => {
     const sendSms = async (e: SyntheticEvent) => {
         e.preventDefault();
 
+        if(select && !number && phones.phone === '') {
+            return ToastError('Wybierz przynajmniej jeden numer!');
+        }
+        if(!select && !number && groups.group === '') {
+            return ToastError('Wpisz numer lub wybierz grupę!');
+        }
+
+        if(sms === '') {
+            return ToastError('Wpisz tekst wiadomości!');
+        }
+
+
         let smsObj = {
-            mobile_number: '+48' + number,
+            mobile_number: number ?? null,
             message: sms,
-            phones
+            phones: phones.phone === '' ? null : phones,
         }
 
         let groupObj = {
-            mobile_number: '+48' + number,
+            mobile_number: number ?? null,
             message: sms,
-            groups
+            groups: groups.group === '' ? null : groups,
         }
 
         Toast('Wysyłanie wiadomości...');
@@ -101,7 +108,15 @@ export const SmsForm = (props: any) => {
                         setNumber('');
                         setSms('');
                         setIsAddingNumber(false);
+                        setPhones({
+                            id: '',
+                            phone: ''
+                        });
                         setIsAddingGroup(false);
+                        setGroups({
+                            id: '',
+                            group: ''
+                        });
                     }
                 }
             )
@@ -126,17 +141,20 @@ export const SmsForm = (props: any) => {
     }
 
     const addNumberToSend = () => {
-        setIsAddingNumber(current => !current)
+        setIsAddingNumber(current => !current);
     }
 
     const addGroupToSend = () => {
-        setIsAddingGroup(current => !current)
+        setIsAddingGroup(current => !current);
     }
 
     const addNumber = () => {
         navigate('/sms/add');
     }
 
+    const showAllNumbers = () => {
+        setShowAll(current => !current);
+    }
 
     return (
         <div className="wrapper-sms">
@@ -165,16 +183,29 @@ export const SmsForm = (props: any) => {
                     : <button type="button" className="button-add" onClick={addGroupToSend}>Wybierz grupę</button>}
 
                 {isAddingNumber && select
-                    ? <AddNumberToSend
-                        smsBase={smsBase}
-                    />
+                    ? <div
+                        className={showAll ? "addNumberToSend-wrapper--showAll" : "addNumberToSend-wrapper"}
+                        onDoubleClick={() => showAllNumbers()}
+                        >
+                          <AddNumberToSend
+                            smsBase={smsBase}
+                          />
+                        </div>
+
                     : null}
 
                 {isAddingGroup && !select
-                    ? <AddGroupToSend
-                        groupsBase={groupsBase}
-                    />
+                    ? <div
+                        className={showAll ? "addNumberToSend-wrapper--showAll" : "addNumberToSend-wrapper"}
+                        onDoubleClick={() => showAllNumbers()}
+                        >
+                          <AddGroupToSend
+                            groupsBase={groupsBase}
+                          />
+                        </div>
                     : null}
+
+
 
                 <textarea
                     name='sms'
@@ -182,7 +213,6 @@ export const SmsForm = (props: any) => {
                     placeholder="Wiadomość... maksymalnie 160 znaków!"
                     maxLength={160}
                     value={sms}
-                    required
                 />
                 <button type="submit">Wyślij</button>
             </form>
