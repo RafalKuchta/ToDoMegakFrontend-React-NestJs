@@ -19,6 +19,12 @@ export const AddGroupToSend = ({groupsBase}: any) => {
             const filter = groupsToSend.filter(group => group.id !== id)
             setGroupsToSend(filter);
             setGroups(filter);
+            if(filter.length === 0){
+                setGroups({
+                    id: '',
+                    group: ''
+                });
+            }
         }
     }
 
