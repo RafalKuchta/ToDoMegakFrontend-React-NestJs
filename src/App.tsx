@@ -24,22 +24,18 @@ export const App = () => {
     const [search, setSearch] = useState('');
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
-    const [phones, setPhones] = useState([{
-        phone: '',
-        name: '',
-        surname: '',
-        company: '',
-        position: '',
+    const [phones, setPhones] = useState({
+      id: '',
+      phone: '',
+    });
+    const [groups, setGroups] = useState({
         id: '',
-    }]);
-    const [groups, setGroups] = useState([{
         group: '',
-        id: '',
-    }]);
+    });
     const [{isLogined, email, roles}, setIsLogined] = useState({
         isLogined: false,
         email: '',
-        roles: [''],
+        roles: '',
     });
 
     useEffect(() => {
@@ -59,7 +55,7 @@ export const App = () => {
             setUser(email)
             setLoading(false);
         })();
-    }, [loading, search])
+    }, [loading, search, email])
 
     return (
         <>
@@ -85,7 +81,8 @@ export const App = () => {
                                         }
                                     >
                                     </Route>
-                                    {(roles.includes('admin')) ? (<Route
+
+                                    {(roles === 'admin') ? (<Route
                                         path='/todo'
                                         element={
                                             isLogined ? (
