@@ -57,7 +57,7 @@ export const Register = () => {
                 <input
                     value={email}
                     name="email"
-                    placeholder='Email'
+                    placeholder="Email"
                     onChange={(e) => setRegisterData({
                         email: e.target.value,
                         pwd,
@@ -69,7 +69,7 @@ export const Register = () => {
                     value={pwd}
                     type="password"
                     name="pwd"
-                    placeholder='Hasło'
+                    placeholder="Hasło"
                     onChange={(e) => setRegisterData({
                         email,
                         pwd: e.target.value,
@@ -81,7 +81,7 @@ export const Register = () => {
                     value={repeatPwd}
                     type="password"
                     name="pwd"
-                    placeholder='Powtórz hasło'
+                    placeholder="Powtórz hasło"
                     onChange={(e) => setRegisterData({
                         email,
                         pwd,
