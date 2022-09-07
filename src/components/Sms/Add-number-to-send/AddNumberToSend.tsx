@@ -12,7 +12,6 @@ export const AddNumberToSend = ({smsBase}: any) => {
     const [phonesToSend, setPhonesToSend] = useState<PhonesToSend[]>([]);
 
     const onHandleAddNumberToSend = (e: ChangeEvent<HTMLInputElement>, sms: string, id: string) => {
-
         if(e.target.checked) {
             phonesToSend.push({phone: sms, id: id})
             setPhones(phonesToSend)
@@ -20,13 +19,21 @@ export const AddNumberToSend = ({smsBase}: any) => {
             const filter = phonesToSend.filter(phone => phone.id !== id)
             setPhonesToSend(filter);
             setPhones(filter);
+            if(filter.length === 0){
+                setPhones({
+                    id: '',
+                    phone: ''
+                });
+            }
+
         }
     }
+
 
     return (
         <>
             {smsBase
-              .sort((a:any, b:any) => a.surname > b.surname ? 1 : -1,)
+              .sort((a:any, b:any) => a.company > b.company ? 1 : -1,)
               .map((sms: any) => (
                 <div
                     className="addNumberToSend"
@@ -35,7 +42,7 @@ export const AddNumberToSend = ({smsBase}: any) => {
                     <label
                         className="addNumberToSend--paragraf"
                         htmlFor={sms.id}
-                    > {sms.surname} - {sms.name} - {sms.position} - {sms.company} - {sms.phone}
+                    > {sms.company} - {sms.surname} - {sms.name} - {sms.position} - {sms.phone}
                     </label>
                     <input
                         type="checkbox"

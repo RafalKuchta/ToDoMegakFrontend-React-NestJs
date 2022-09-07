@@ -1,6 +1,9 @@
 import {createContext} from "react";
 
 export const GroupsContext = createContext({
-    groups: {},
+    groups: {
+        id: '',
+        group: ''
+    },
     setGroups: (groups: any) => {},
 });

@@ -152,10 +152,10 @@ export const Edit = () => {
                                 hidden>{form.groups ? form.groups.name : "Brak"}</option>
 
                         {
-                            groups.map(group => (
+                            groups.map((group, i) => (
                                 <>
                                     <option
-                                        key={group.id}
+                                        key={i}
                                         value={group.name}
                                     >{group.name}</option>
                                 </>
