@@ -34,6 +34,7 @@ export const Header = ({setIsLogined}: any) => {
             <div className="nav">
                 <NavLink to='/sms' className="logo">GBA Polska</NavLink>
                 <NavLink to='/sms' className={({ isActive }) => (isActive ? "sms active" : "sms")}>Bramka Sms</NavLink>
+                <NavLink to='/sent' className={({ isActive }) => (isActive ? "sent active" : "sent")}>Wysłane smsy</NavLink>
                 <NavLink to='/numbers-list' className={({ isActive }) => (isActive ? "numbers-list active" : "numbers-list")}>Lista numerów</NavLink>
                 <NavLink to='/chat' className={({ isActive }) => (isActive ? "chat active" : "chat")}>Chat</NavLink>
                 {setIsLogined.roles === 'admin' ? <NavLink to='/todo' className={({isActive}) => (isActive ? "todo active" : "todo")}>To Do</NavLink> : null}

@@ -34,7 +34,7 @@ a.todo {
     border-bottom: 1px solid #80CFA9;
 }
 
-a.chat, a.sms, a.numbers-list {
+a.chat, a.sms, a.numbers-list, a.sent {
     color: black;
     padding: 5px;
     text-decoration: none;
@@ -49,7 +49,7 @@ a.sms {
     font-weight: bold;
 }
 
-.chat:hover, .sms:hover, .numbers-list:hover {
+.chat:hover, .sms:hover, .numbers-list:hover, .sent:hover {
     font-weight: bold;
     border-bottom: 1px solid #80CFA9;
 }

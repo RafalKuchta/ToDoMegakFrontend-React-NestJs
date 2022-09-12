@@ -19,6 +19,7 @@ import {NumbersList} from './components/Numbers/Numbers-list';
 import {getAxiosData} from './components/Axios-api/Axios.api';
 import {Edit} from "./components/Numbers/Edit/Edit";
 import {GroupsContext} from './context/groups.context';
+import { Sent } from './components/Sms/Sent/Sent';
 
 export const App = () => {
     const [search, setSearch] = useState('');
@@ -195,6 +196,20 @@ export const App = () => {
                                         }
                                     >
                                     </Route>
+                                  <Route
+                                    path='/sent'
+                                    element={
+                                      isLogined ? (
+                                        <>
+                                          <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                          <Sent/>
+                                        </>
+                                      ) : (
+                                        <Login setIsLogined={setIsLogined}/>
+                                      )
+                                    }
+                                  >
+                                  </Route>
 
                                 </Routes>
                             </GroupsContext.Provider>
