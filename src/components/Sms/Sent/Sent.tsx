@@ -17,34 +17,49 @@ interface SmsEntity {
   created_at: string;
 }
 
-export const Sent = ({setIsLogined}: any) => {
+export const Sent = () => {
   const {loading, setLoading} = useContext(LoadingContext);
   const [smsSent, setSmsSent] = useState<SmsEntity[]>([]);
-  const [date, setDate] = useState(new Date());
+
+  let defaultDate = new Date()
+  defaultDate.setDate(defaultDate.getDate())
+
+  const [dataInput, setDataInput] = useState<Date>(defaultDate);
+
+  const onSetDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDataInput(new Date(event.target.value))
+  }
 
   useEffect(() => {
     (async () => {
       const res = await getFetchDataId({
-        url: '/sms/sms-sent/123',
+        url: '/sms/sms-sent/',
         method: 'GET',
-        id: '123',
+        id: `${dataInput.toLocaleDateString('en-CA')}`,
       })
       const response = await res.json();
       setSmsSent(response);
     })();
     setLoading(false);
-  }, [loading]);
-
+  }, [loading, dataInput]);
 
   return (
     <>
       <h2>Lista wysłanych SMS'ów</h2>
       <div className="list-numbers">
         <ToastContainer autoClose={5000}/>
+        <label htmlFor="date" id="date">Wybierz datę: </label>
+        <input
+          className="input-date"
+          type="date"
+          value={dataInput.toLocaleDateString('en-CA')}
+          onChange={onSetDate}
+        />
         <table>
           <thead>
             <tr>
               <th>Data wysłania</th>
+              <th>Gozina</th>
               <th>Nazwisko</th>
               <th>Imię</th>
               <th>Firma / Lokalizacja</th>
@@ -59,7 +74,8 @@ export const Sent = ({setIsLogined}: any) => {
               <tbody key={i}>
                 <tr
                 >
-                  <td>{sms.created_at}</td>
+                  <td>{sms.created_at.slice(0, 10)}</td>
+                  <td>{sms.created_at.slice(11, 19)}</td>
                   <td>{sms.surname ? sms.surname : "Brak"}</td>
                   <td>{sms.name ? sms.name : "Brak"}</td>
                   <td>{sms.company ? sms.company : "Brak"}</td>
