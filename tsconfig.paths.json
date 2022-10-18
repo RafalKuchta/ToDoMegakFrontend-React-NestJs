@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "types": [
-        "../backend-nest/src/types"
+        "../ToDoMegakBackend-NestJs/src/types"
       ]
     }
   }
