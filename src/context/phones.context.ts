@@ -1,9 +1,12 @@
 import {createContext} from "react";
 
 export const PhonesContext = createContext({
-    phones: {
+    phones: [{
         id: '',
-        phone: ''
-    },
+        phone: '',
+        company: '',
+        name: '',
+        surname: '',
+    }],
     setPhones: (phones: any) => {},
 });
