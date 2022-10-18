@@ -15,7 +15,7 @@ export const MessageComponent = ({email}: { email: string }) => {
     }
 
     useEffect(() => {
-        const newSocket = io('http://localhost:3001');
+        const newSocket = io('http://localhost:3002');
         setSocket(newSocket);
         setUSer(email);
     }, [setSocket]);
