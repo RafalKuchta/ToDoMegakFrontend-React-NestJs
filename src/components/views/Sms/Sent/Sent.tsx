@@ -42,7 +42,7 @@ export const Sent = () => {
       setSmsSent(response);
     })();
 
-  }, [loading, dataInput]);
+  }, [dataInput]);
 
   return (
     <>
