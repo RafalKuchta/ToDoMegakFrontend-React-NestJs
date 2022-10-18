@@ -5,6 +5,7 @@
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #80CFA9;
+    z-index: 100;
 }
 
 .nav {
@@ -49,7 +50,7 @@ a.sms {
     font-weight: bold;
 }
 
-.chat:hover, .sms:hover, .numbers-list:hover, .sent:hover {
+.chat:hover, .sms:hover, .numbers-list:hover, a.sent:hover {
     font-weight: bold;
     border-bottom: 1px solid #80CFA9;
 }
@@ -58,6 +59,11 @@ a.sms {
     position: absolute;
     top: 15px;
     right: 15px;
+
+}
+
+.user p {
+    padding-left: 52px;
 }
 
 .user .svg-inline--fa {
@@ -69,6 +75,15 @@ a.sms {
     width: 100%;
     height: 30px;
     overflow: hidden;
+}
+
+.logoutSettingButtons .logout {
+    margin-bottom: 0;
+}
+
+.logoutSettingButtons > .settings {
+    margin-top: 0;
+    border-top: none;
 }
 
 
