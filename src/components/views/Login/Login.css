@@ -2,6 +2,11 @@
     margin: 5%;
 }
 
+h2.login {
+    margin-top: 150px;
+    margin-bottom: 40px;
+}
+
 .login-form {
     display: flex;
     flex-direction: column;
@@ -25,8 +30,9 @@
 
 .login-form input {
     width: 100%;
-    height: 30px;
-    border-right: 1px solid #80CFA9;
+    height: 40px;
+    padding: 15px 10px;
+    border-right: 1px solid #27a4a9;
     border-radius: 5px;
 }
 
@@ -45,7 +51,7 @@
 }
 
 .icon-faEye, .faEyeSlash {
-    color: gray;
+    color: #3088ce;
 }
 
 .submit {
@@ -55,10 +61,24 @@
     background: white;
 }
 
-.login-form button {
-    width: 40%;
-    height: 30px;
-    border-radius: 5px;
+.login-form button,
+.register-link  {
+    width: 45%;
+    height: 40px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 1px solid #63AFB2;
+    color: #63AFB2;
+    text-decoration: none;
+}
+
+.login-form button:hover {
+    color: white;
+}
+
+.register-link:hover {
+    color: white;
+    background-color: #63AFB2;
 }
 
 .login-submit {
@@ -73,4 +93,43 @@
     background: white;
     height: 100%;
     text-align: center;
+}
+
+@media (max-width: 877px) {
+    .login-form {
+        width: 60%;
+    }
+
+    h2.login {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 590px) {
+    .login-form {
+        width: 70%;
+    }
+}
+
+@media (max-width: 505px) {
+    .login-form {
+        width: 80%;
+    }
+}
+
+@media (max-width: 444px) {
+    .login-form {
+        width: 95%;
+    }
+
+    .login-submit {
+        flex-direction: column;
+    }
+
+    .login-form button,
+    .register-link  {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
 }
