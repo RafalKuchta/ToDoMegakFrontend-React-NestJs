@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {LoadingContext} from "../../../context/loading.context";
 import {getAxiosData} from "../../common/Axios-api/Axios.api";
 
@@ -20,7 +20,7 @@ export const MessageInput = ({send}: { send: (value: string) => void}) => {
     }
 
     return (
-        <>
+        <div className='wrapper-input-message'>
             <form className="input-message" onSubmit={sendMessage}>
                 <input
                     type="text"
@@ -33,6 +33,6 @@ export const MessageInput = ({send}: { send: (value: string) => void}) => {
                 />
                 <button onClick={() => send(value)}>Wyślij</button>
             </form>
-        </>
+        </div>
     )
 }
