@@ -35,7 +35,6 @@ export const Messages = ({message}: { message: string[] }) => {
 
     return (
         <div className="messages-page">
-            <div>
                 {
                     messages.map(message => (
                         <div className={message.user === user ? "message-chat-inside" : "message-chat-outside"}
@@ -49,8 +48,6 @@ export const Messages = ({message}: { message: string[] }) => {
                         </div>
                     ))
                 }
-            </div>
-            <div>
                 {
                     message.map((mess, i) => (
                         <div className={mess[1] === user ? "message-chat-inside" : "message-chat-outside"} key={i}>
@@ -63,7 +60,6 @@ export const Messages = ({message}: { message: string[] }) => {
                         </div>
                     ))
                 }
-            </div>
             <div ref={bottomRef}/>
         </div>
 
