@@ -1,0 +1,177 @@
+.component-about {
+  position: relative;
+  height: 100vh;
+  background-image: linear-gradient(15deg, #80d0c7 10%, #13547a 100%);
+}
+
+.about-wrap {
+  display: block;
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  background-color: white;
+  z-index: 0;
+}
+
+.about-wrap .img-wrap img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  height: 150px;
+}
+
+.component-about p {
+  color: black;
+}
+
+.img-wrap:first-child {
+  padding-top: 50px;
+}
+
+.img-wrap h2 {
+  font-size: 2em;
+}
+
+.img-wrap p {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+
+.about-me {
+  text-indent: 30px;
+  line-height: 30px;
+  text-align: justify;
+}
+
+.get-cv a {
+  position: absolute;
+  top: 60px;
+  right: 100px;
+  color: #266A88;
+  text-decoration-line: underline;
+}
+
+.about-me ul {
+  margin-left: 60px;
+}
+
+
+.about-me li {
+  text-indent: 0;
+}
+
+
+.about-me-wrap {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.contact {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  padding-bottom: 10px;
+}
+
+.contact .github-ico {
+  color: gray;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.contact .email-ico {
+  color: gray;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.contact .phone-ico {
+  color: gray;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.contact .email-ico {
+  color: gray;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.contact .linkedin-ico {
+  color: gray;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.contact .github-ico:hover {
+
+}
+
+.contact .email-ico:hover {
+
+}
+
+.contact .phone-ico:hover {
+
+}
+
+.contact .email-ico:hover {
+
+}
+
+.contact .linkedin-ico:hover {
+
+}
+
+
+@media(max-width: 888px) {
+  .get-cv a {
+    top: -100px;
+    right: -30px;
+    color: white;
+  }
+
+  .about-me ul {
+    margin-left: 30px;
+  }
+
+  .about-me ul li,
+  .about-me ul li a {
+    font-size: 12px;
+  }
+}
+
+@media(max-width: 688px) {
+  .contact {
+    width: 60%;
+  }
+}
+
+@media(max-width: 550px) {
+  .contact {
+    width: 60%;
+  }
+}
+
+@media(max-width: 500px) {
+  .contact {
+    width: 80%;
+  }
+}
+
+@media(max-width: 400px) {
+  .contact {
+    width: 95%;
+  }
+}
