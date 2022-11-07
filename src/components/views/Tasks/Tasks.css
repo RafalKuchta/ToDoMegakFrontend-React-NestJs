@@ -5,41 +5,17 @@
     display: flex;
 }
 
-h1 {
-    margin: 20px;
-    text-align: center;
-    font-size: 50px;
-    font-family: 'Source Sans Pro', sans-serif;
-    /*font-family: 'Caveat', cursive;*/
-}
-
-h2 {
-    margin: 70px 20px 40px 20px;
-    text-align:center;
-    font-size: 35px;
-    font-weight: normal;
-    font-family: 'Source Sans Pro', sans-serif;
-    /*font-family: 'Caveat', cursive;*/
-}
-
-h3 {
-    margin: 60px 20px 40px 20px;
-    text-align:center;
-    font-size: 20px;
-    font-weight: normal;
-    font-family: 'Source Sans Pro', sans-serif;
-    /*font-family: 'Caveat', cursive;*/
-}
 
 input, select {
     width: 80%;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 3px;
-    border: 1px solid #80CFA9;
+    border: 1px solid #63AFB2;
     border-right: none;
     background: white;
 }
+
 
 .tasks-to-do {
     display: flex;
@@ -47,7 +23,7 @@ input, select {
     width: 70%;
     margin: 5px auto;
     padding: 10px;
-    border: 1px solid #baeed5;
+    border: 1px solid #84b9bb;
     border-radius: 5px;
 }
 
@@ -59,7 +35,7 @@ input, select {
     width: 20px;
     height: 20px;
     margin-left: 20px;
-    color: #80CFA9;
+    color: #63AFB2;
 }
 .icon-done:active {
     box-shadow: 0 0 5px green;
@@ -67,7 +43,6 @@ input, select {
 .icon-done:hover {
     color: green;
 }
-
 
 .icon-edit {
     width: 20px;
@@ -96,6 +71,9 @@ input, select {
     color: red;
 }
 
+.wrapper-to-do-all {
+    margin-bottom: 40px;
+}
 
 @Media (max-width: 600px){
     .wrapper-to-do {
