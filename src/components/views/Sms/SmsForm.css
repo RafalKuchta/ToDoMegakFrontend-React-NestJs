@@ -76,7 +76,7 @@
     width: 100%;
     margin: 10px auto;
     padding: 5px;
-    border: 1px solid #80CFA9;
+    border: 1px solid #63AFB2;
     background: white;
 }
 
@@ -88,16 +88,16 @@
 .wrapper-sms .input-one-sm--code,
 .wrapper-sms--showAll .input-one-sm--code {
     height: 100%;
-    width: 8%;
+    width: 44px;
     margin-right: 10px;
     padding: 5px;
-    border: 1px solid #80CFA9;
+    border: 1px solid #63AFB2;
     background: white;
 }
 
 .input-code-border-red {
     height: 100%;
-    width: 8%;
+    width: 44px;
     margin-right: 10px;
     padding: 5px;
     border: 1px solid red;
@@ -108,7 +108,7 @@
 .wrapper-sms--showAll .input-one-sms{
     width: 90%;
     padding: 5px;
-    border: 1px solid #80CFA9;
+    border: 1px solid #63AFB2;
     background: white;
 }
 
@@ -131,7 +131,7 @@
 }
 
 input:focus {
-    outline-color : #80CFA9;
+    outline-color : #63AFB2;
 }
 
 .wrapper-icon-plus {
@@ -146,7 +146,7 @@ input:focus {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #80CFA9;
+    color: #63AFB2;
 }
 
 .icon-plus-border-red  {
@@ -187,7 +187,7 @@ input:focus {
     display: flex;
     margin-bottom: 5px;
     padding: 5px;
-    border: 1px solid #80CFA9;
+    border: 1px solid #63AFB2;
 }
 
 .phonesToSend .phonesToSend-details {
@@ -196,4 +196,16 @@ input:focus {
 
 .phonesToSend .phonesToSend-trash {
     width: 10%;
+}
+
+@media (max-width: 766px) {
+    .wrapper-sms {
+        width: 60%;
+    }
+}
+
+@media (max-width: 400px) {
+    .wrapper-sms {
+        width: 90%;
+    }
 }
