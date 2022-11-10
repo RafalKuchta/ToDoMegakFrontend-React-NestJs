@@ -1,0 +1,17 @@
+.footer-wrapper {
+    height: 400px;
+    width: 100%;
+    background-color: #42474A;
+}
+
+.footer-wrapper-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 40px
+}
+
+.footer-wrapper-data-text {
+    width: 300px;
+
+}
