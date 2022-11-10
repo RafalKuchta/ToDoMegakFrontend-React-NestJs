@@ -8,26 +8,28 @@ export const Footer = () => {
 			<div className='footer-wrapper-data'>
 				<div className='footer-wrapper-data-text'>
 					<h4>Dane kontaktowe</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi laborum nobis perspiciatis tempore! Aut delectus error, explicabo magnam optio quia reiciendis sed suscipit ullam, vel, vitae voluptates? Accusantium, aliquam eius!</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi laborum nobis perspiciatis tempore!</p>
 					<p>Zadzwoń : 555666777</p>
-					<p>E-mail: sklep@vivi.pl</p>
+					<p>E-mail: <a href='mailto:sklep@vivi.pl'>sklep@vivi.pl</a></p>
 				</div>
 
 				<div className='footer-wrapper-data-text'>
 					<h4>Informacje</h4>
-					<p><a>Polityka prywatności</a></p>
-					<p><a>Regulamin</a></p>
+					<p><a href='/polityka-prywatnosci'>Polityka prywatności</a></p>
+					<p><a href='/regulamin'>Regulamin</a></p>
 				</div>
 
 				<div className='footer-wrapper-data-text'>
 					<h4>Polecane strony</h4>
-					<p><a>Cyfrostudnia</a></p>
-					<p><a>Fundacja zaNim</a></p>
-					<p><a>ViVi Sound</a></p>
-					<p><a>Witek Wilk</a></p>
+					<p><a href='https://www.aftermarket.pl/'>Cyfrostudnia</a></p>
+					<p><a href='https://fundacjazanim.pl/'>Fundacja zaNim</a></p>
+					<p><a href='http://vivisound.pl/'>ViVi Sound</a></p>
+					<p><a href='http://witekwilk.pl/'>Witek Wilk</a></p>
 				</div>
 			</div>
-			<p>© ViVi 2022</p>
+			<div className='footer-wrapper-data-copyright'>
+				<p>© ViVi 2022</p>
+			</div>
 		</div>
 	)
 }
