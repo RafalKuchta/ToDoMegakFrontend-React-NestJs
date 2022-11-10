@@ -59,6 +59,9 @@ export const Header = ({setIsLogined}: any) => {
 				<ul className="menu">
 					<li><NavLink onClick={onHandleChecked} to='/'
 					             className={({isActive}) => (isActive ? "about active" : "about")}>O mnie</NavLink></li>
+
+					<li><NavLink to='/shop' className={({isActive}) => (isActive ? "about active" : "about")}>Sklep</NavLink></li>
+
 					<li><NavLink onClick={onHandleChecked} to='/sms'
 					             className={({isActive}) => (isActive ? "sms active" : "sms")}>Bramka Sms</NavLink></li>
 					<li><NavLink onClick={onHandleChecked} to='/sent'
@@ -67,8 +70,9 @@ export const Header = ({setIsLogined}: any) => {
 					<li><NavLink onClick={onHandleChecked} to='/numbers-list'
 					             className={({isActive}) => (isActive ? "numbers-list active" : "numbers-list")}>Lista
 						numerów</NavLink></li>
-					{setIsLogined.roles === 'admin' ?<li><NavLink onClick={onHandleChecked} to='/chat'
-					                                               className={({isActive}) => (isActive ? "chat active" : "chat")}>Chat</NavLink></li> : null}
+					{setIsLogined.roles === 'admin' ? <li><NavLink onClick={onHandleChecked} to='/chat'
+					                                               className={({isActive}) => (isActive ? "chat active" : "chat")}>Chat</NavLink>
+					</li> : null}
 					{setIsLogined.roles === 'admin' ? <li><NavLink onClick={onHandleChecked} to='/todo'
 					                                               className={({isActive}) => (isActive ? "todo active" : "todo")}>To
 						Do</NavLink></li> : null}
