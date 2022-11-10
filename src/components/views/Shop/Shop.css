@@ -16,10 +16,30 @@
 
 .shop-nav {
     display: flex;
+    justify-content: space-between;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.shop-nav-sec1 {
+    display: inline-block;
+}
+
+.shop-nav-sec2 {
+    display: inline-block;
 }
 
 .shop-nav li {
     display: inline-block;
     margin: 40px 30px;
     /*text-transform: uppercase;*/
+}
+
+.shop-nav a {
+    text-decoration: none;
+    color: white;
+}
+
+.shop-nav a:hover {
+    color: #63AFB2;
 }

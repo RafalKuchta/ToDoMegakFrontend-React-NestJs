@@ -10,26 +10,32 @@ export const Shop = () => {
 	return (
 		<>
 			<div className='shop-wrapper'>
-				<h2><span>vivi</span> shop</h2>
-
 				<div className='shop-nav'>
-					<ul>
-						<li>Sklep</li>
-						<li>Moje konto</li>
-						<li>Zamówienie</li>
-						<li>0,00zł</li>
-						<li>
-							<FontAwesomeIcon
-								icon={faBasketShopping}
-								className="icon"
-							/>
-						</li>
-					</ul>
+					<div className='shop-nav-sec1'>
+						<ul>
+							<li><a href='/moje-konto'>Moje konto</a></li>
+							<li><a href='/zamowienia'>Zamówienie</a></li>
+						</ul>
+
+					</div>
+					<div className='shop-nav-sec2'>
+						<ul>
+							<a href="/koszyk">
+								<li>
+									<FontAwesomeIcon
+										icon={faBasketShopping}
+										className="icon"
+									/>
+								</li>
+								<li>0,00zł</li>
+							</a>
+						</ul>
+					</div>
 				</div>
 			</div>
 
 			<Category/>
-			<Footer />
+			<Footer/>
 		</>
 	)
 }
