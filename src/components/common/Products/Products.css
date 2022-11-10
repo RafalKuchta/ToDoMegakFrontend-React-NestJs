@@ -1,0 +1,22 @@
+.products-wrapper {
+    width: 250px;
+    height: 350px;
+}
+
+.products-wrapper img {
+    width: 100%;
+}
+
+.products-wrapper div,
+.products-wrapper button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.products-wrapper button {
+    margin: 15px auto;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+}
