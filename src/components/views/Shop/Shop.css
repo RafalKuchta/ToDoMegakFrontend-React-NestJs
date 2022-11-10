@@ -31,7 +31,7 @@
 
 .shop-nav li {
     display: inline-block;
-    margin: 40px 30px;
+    padding: 40px 30px;
     /*text-transform: uppercase;*/
 }
 
@@ -40,6 +40,19 @@
     color: white;
 }
 
-.shop-nav a:hover {
+.shop-nav li:hover a{
     color: #63AFB2;
+}
+
+.category-and-section-shop {
+    display: flex;
+    justify-content: center;
+}
+
+/*.category-and-section-shop .category {*/
+/*    width: 30%;*/
+/*}*/
+
+.category-and-section-shop .section-shop {
+    width: 70%;
 }

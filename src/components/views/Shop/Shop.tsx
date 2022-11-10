@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import './Shop.css';
 import {Category} from "../../common/Category/Category";
 import {Footer} from "../../common/Footer/Footer";
+import {SectionShop} from "../../common/SectionShop/SectionShop";
 
 export const Shop = () => {
 	return (
@@ -34,7 +35,14 @@ export const Shop = () => {
 				</div>
 			</div>
 
-			<Category/>
+			<div className='category-and-section-shop'>
+				<div className='category'>
+					<Category/>
+				</div>
+				<div className='section-shop'>
+					<SectionShop/>
+				</div>
+			</div>
 			<Footer/>
 		</>
 	)
