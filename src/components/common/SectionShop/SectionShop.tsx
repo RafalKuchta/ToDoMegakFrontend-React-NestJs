@@ -59,7 +59,7 @@ export const SectionShop = () => {
 	]);
 	return (
 		<div className='section-shop-wrapper'>
-			<h2>Sklep</h2>
+			<h2>Sklep <span className='section-shop-h2-span'>( Strona testowa na bazie działajacego sklepu: <a href='https://vivishop.pl/'>vivishop.pl</a> )</span></h2>
 			<form action="">
 				<select name="orderby" id="orderby" className='section-shop-wrapper-orderby'>
 					<option value="menu_order">Domyślne sortowanie</option>

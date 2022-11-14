@@ -6,6 +6,10 @@
     text-align: left;
 }
 
+.section-shop-h2-span {
+    font-size: .4em;
+}
+
 .section-shop-wrapper form {
     display: flex;
     width: 100%;
