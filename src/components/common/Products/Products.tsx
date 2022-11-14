@@ -2,20 +2,27 @@ import React from 'react';
 
 import {Btn} from "../Btn/Btn";
 import './Products.css';
-import {ProductsType} from "../SectionShop/SectionShop";
 
 export const Products = ({products}: any) => {
-
 	return (
 		<>
 
-			<div className='products-wrapper'>
-				<img src={products[0].img} alt=""/>
-				<div className='products-title'>{products[0].title}</div>
-				<div className='products-price'>{products[0].price}</div>
-				<Btn text='Wybierz opcje'/>
-			</div>
-
+			{
+				products.map((product: any, i: number) => {
+					return (
+						<div key={i} className='products-wrapper'>
+							<div className='products-img-title-price'>
+								<img src={product.img} alt=""/>
+								<div className='products-title'>{product.title}</div>
+								<div className='products-price'>{product.price}</div>
+							</div>
+							<div className='products-button'>
+								<Btn text='Wybierz opcje'/>
+							</div>
+						</div>
+					)
+				})
+			}
 		</>
 	)
 }
