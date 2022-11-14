@@ -49,10 +49,14 @@
     justify-content: center;
 }
 
-/*.category-and-section-shop .category {*/
-/*    width: 30%;*/
-/*}*/
-
 .category-and-section-shop .section-shop {
     width: 70%;
+}
+
+
+@media(max-width: 985px) {
+    .category-and-section-shop {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
 }
