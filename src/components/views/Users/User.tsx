@@ -79,7 +79,7 @@ export const User = ({setIsLogined}: any) => {
 						</table>
 					</div>
 					<div className="user-edit">
-						<Btn text='Powrót do strony głównej' to='/sms'/>
+						<Btn text='Powrót' to='/sms'/>
 						<Btn text='Dodaj użytkownika' to='/register'/>
 					</div>
 

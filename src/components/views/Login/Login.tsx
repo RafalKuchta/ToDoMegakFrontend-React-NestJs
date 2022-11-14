@@ -7,6 +7,7 @@ import {getAxiosData} from "../../common/Axios-api/Axios.api";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router";
+import {Link} from "react-router-dom";
 
 export const Login = ({setIsLogined}: any) => {
     const [passwordType, setPasswordType] = useState("password");
@@ -57,7 +58,7 @@ export const Login = ({setIsLogined}: any) => {
 
     return (
         <>
-            <h2 className="login">Zaloguj</h2>
+            <h2 className="login">Mega App</h2>
             <form className="login-form" onSubmit={login}>
                 <div className='div-email-input'>
                     <input
@@ -90,7 +91,7 @@ export const Login = ({setIsLogined}: any) => {
                 </div>
 
                 <div className="login-submit">
-                    <button type="submit">Zaloguj</button>
+                    <button type="submit">Zaloguj</button>  <Link className='register-link' to="/register">Zarejestruj się</Link>
                 </div>
                 {error.length > 0 && <ToastContainer autoClose={5000}/>}
             </form>

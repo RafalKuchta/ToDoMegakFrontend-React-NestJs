@@ -1,7 +1,8 @@
 .input-date {
     width: 150px;
     height: 30px;
-    border: 1px solid #80CFA9;
+    border: 1px solid #63AFB2;
+    color: #63AFB2;
     cursor: pointer;
 }
 

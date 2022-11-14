@@ -1,81 +1,152 @@
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid #80CFA9;
-    z-index: 100;
-}
-
-.nav {
-    display: flex;
-    height: 100%;
-    align-items: center;
-}
-
 .logo {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
-    /*color: #71bef5;*/
-    color: #345DE0;
+    color: white;
     margin-left: 20px;
     text-decoration: none;
 }
 
+.top {
+    width: 100%;
+    height: 50px;
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #00BAF0;
+    background-image: linear-gradient(15deg, #80d0c7 0%,  #13547a 100%);
+    color: #FFF;
+    padding: 1em;
+    z-index: 3;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.menu > li {
+    margin: 0 1rem;
+    overflow: hidden;
+}
+
+.menu-button-container {
+    display: none;
+    height: 100%;
+    width: 30px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-button,
+.menu-button::before,
+.menu-button::after {
+    display: block;
+    background-color: #fff;
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+}
+
+.menu-button::before {
+    content: '';
+    margin-top: -8px;
+}
+
+.menu-button::after {
+    content: '';
+    margin-top: 8px;
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::before {
+    margin-top: 0;
+    transform: rotate(405deg);
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button {
+    background: rgba(255, 255, 255, 0);
+}
+
+#menu-toggle:checked + .menu-button-container .menu-button::after {
+    margin-top: 0;
+    transform: rotate(-405deg);
+}
+
+a.about,
+a.chat,
+a.sms,
+a.numbers-list,
+a.sent,
 a.todo {
-    color: black;
+    color: white;
     padding: 5px;
     text-decoration: none;
     margin: 10px 5px;
-}
-
-.todo:hover {
-    font-weight: bold;
-    border-bottom: 1px solid #80CFA9;
-}
-
-a.chat, a.sms, a.numbers-list, a.sent {
-    color: black;
-    padding: 5px;
-    text-decoration: none;
-    margin: 10px 5px;
-}
-
-a.sms {
-    margin: 10px 5px 10px 30px;
 }
 
 .active {
     font-weight: bold;
 }
 
-.chat:hover, .sms:hover, .numbers-list:hover, a.sent:hover {
+a.about:hover,
+a.chat:hover,
+a.sms:hover,
+a.numbers-list:hover,
+a.sent:hover,
+a.todo:hover {
     font-weight: bold;
     border-bottom: 1px solid #80CFA9;
 }
 
-.user {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-
-}
-
-.user p {
-    padding-left: 52px;
-}
-
 .user .svg-inline--fa {
     margin-left: 5px;
+    margin-right: 15px;
 }
 
 .user button {
-    margin-top: 10px;
     width: 100%;
+    padding: 10px 30px;
     height: 30px;
+    line-height: 80%;
     overflow: hidden;
+    border-bottom: none;
+    user-select: none;
+    cursor: pointer;
 }
+.user li:last-child {
+    border-bottom: 1px solid #63AFB2;
+    border-radius: 5%;
+}
+
+ul.logoutSettingButtons {
+    position: absolute;
+    top: 55px;
+    right: 30px;
+    list-style-type: none;
+    background-color: white;
+    margin: 0;
+}
+
 
 .logoutSettingButtons .logout {
     margin-bottom: 0;
@@ -87,4 +158,56 @@ a.sms {
 }
 
 
+@media (max-width: 1059px) {
+    .top-nav {
+        z-index: 3;
+    }
 
+    .menu-button-container {
+        display: flex;
+    }
+    .menu {
+        position: absolute;
+        top: 0;
+        margin-top: 50px;
+        left: 0;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    #menu-toggle ~ .menu li,
+    #menu-toggle ~ .menu li a {
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    #menu-toggle:checked ~ .menu li {
+        border: 1px solid #333;
+        height: 2.5em;
+        padding: 0.5em;
+        transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .menu > li {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0.5em 0;
+        width: 100%;
+        color: white;
+        background-color: #222;
+    }
+    .menu > li:not(:last-child) {
+        border-bottom: 1px solid #444;
+    }
+}
+
+@media(max-width: 500px) {
+    .logo {
+        margin-left: 5px;
+    }
+}

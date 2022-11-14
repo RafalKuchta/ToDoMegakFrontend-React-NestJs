@@ -1,8 +1,18 @@
 
 .input-message {
     position: fixed;
+    left: 20%;
     bottom: 20px;
     width: 50%;
+}
+
+.wrapper-input-message {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: white;
 }
 
 .input-message input {
@@ -14,25 +24,25 @@
 }
 
 .messages-page {
-    width: 800px;
+    width: 70%;
     margin: 0 auto 100px auto;
 }
 
 .message-chat-inside {
-    width: 50%;
+    width: 80%;
     padding: 10px;
     margin: 10px;
-    border: 2px solid #80CFA9;
+    border: 1px solid #63AFB2;
     background: white;
     border-radius: 10px;
 }
 
 .message-chat-outside {
-    width: 50%;
+    width: 80%;
     padding: 10px;
     margin: 10px 0 10px 100px;
-    border: 2px solid #80CFA9;
-    background: #93deba;
+    border: 2px solid #63AFB2;
+    background: #63AFB2;
     border-radius: 10px;
 }
 
@@ -45,24 +55,27 @@
 
 .message-chat--user-inside {
     font-size: 13px;
+    color: #63AFB2;
     background: white;
 }
 
 .message-chat--user-outside {
     font-size: 13px;
-    background: #93deba;
+    background: #63AFB2;
 }
 
-.message-chat--time-inside, .message-chat--time-inside > p {
+.message-chat--time-inside,
+.message-chat--time-inside > p {
     display: flex;
     justify-content: space-between;
+    color: #63AFB2;
     background: white;
 }
 
 .message-chat--time-outside, .message-chat--time-outside > p {
     display: flex;
     justify-content: space-between;
-    background: #93deba;
+    background: #63AFB2;
 }
 
 .message--time-inside {
@@ -71,4 +84,43 @@
 
 .message--time-outside {
     font-size: 13px;
+}
+@media(max-width: 720px) {
+    .messages-page {
+        width: 80%;
+    }
+
+    .message-chat-inside,
+    .message-chat-outside{
+        width: 80%;
+    }
+
+    .message-chat-outside {
+        margin-left: 50px;
+    }
+}
+
+@media(max-width: 600px) {
+    .messages-page {
+        width: 90%;
+    }
+
+    .message-chat-outside {
+        margin-left: 20px;
+    }
+
+    .message-chat-inside,
+    .message-chat-outside{
+        width: 90%;
+    }
+
+    .input-message {
+        width: 70%;
+    }
+    .input-message button {
+        width: 30%;
+    }
+    .input-message input {
+        width: 70%;
+    }
 }

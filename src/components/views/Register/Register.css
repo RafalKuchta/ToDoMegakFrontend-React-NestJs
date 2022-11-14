@@ -19,11 +19,35 @@
 .register-form input {
     width: 100%;
     height: 30px;
-    border-right: 1px solid #80CFA9;
+    border-right: 1px solid #27a4a9;
 }
 
 .register-form button {
     margin-top: 20px;
     height: 30px;
     width: 100%;
+}
+
+@media (max-width: 766px) {
+    .register-form {
+        width: 60%;
+    }
+}
+
+@media (max-width: 424px) {
+    .register-form {
+        width: 70%;
+    }
+}
+
+@media (max-width: 365px) {
+    .register-form {
+        width: 80%;
+    }
+}
+
+@media (max-width: 310px) {
+    .register-form {
+        width: 95%;
+    }
 }

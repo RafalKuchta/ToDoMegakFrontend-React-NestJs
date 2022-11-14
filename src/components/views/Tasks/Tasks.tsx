@@ -89,7 +89,7 @@ export const Tasks = ({setIsLogined}: any) => {
 
 
 	return (
-		<>
+		<div className="wrapper-to-do-all">
 			<h2>To Do Lista</h2>
 			<Search/>
 			<AddForm/>
@@ -148,6 +148,6 @@ export const Tasks = ({setIsLogined}: any) => {
 					</div>
 				))
 			}
-		</>
+		</div>
 	)
 }

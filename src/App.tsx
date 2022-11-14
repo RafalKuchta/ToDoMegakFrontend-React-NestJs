@@ -22,6 +22,7 @@ import {GroupsContext} from './context/groups.context';
 import {Sent} from "./components/views/Sms/Sent/Sent";
 import {User} from "./components/views/Users/User";
 import { UserEdit } from './components/views/Users/Edit/UserEdit';
+import {Shop} from "./components/views/Shop/Shop";
 
 export const App = () => {
     const [search, setSearch] = useState('');
@@ -86,6 +87,20 @@ export const App = () => {
                                                 <>
                                                     <Header setIsLogined={{setIsLogined, email, roles}}/>
                                                     <Home />
+                                                </>
+                                            ) : (
+                                                <Login setIsLogined={setIsLogined}/>
+                                            )
+                                        }
+                                    />
+
+                                    <Route
+                                        path='/shop'
+                                        element={
+                                            isLogined ? (
+                                                <>
+                                                    <Header setIsLogined={{setIsLogined, email, roles}}/>
+                                                    <Shop />
                                                 </>
                                             ) : (
                                                 <Login setIsLogined={setIsLogined}/>

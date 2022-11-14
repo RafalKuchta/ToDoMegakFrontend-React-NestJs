@@ -1,17 +1,48 @@
 .wrapper-edit-user {
-    width: 60%;
+    width: 40%;
     margin: 20px auto;
     height: 20px;
 }
 
 
-.edit-user input, .edit-user select, .edit-user button {
+.edit-user input,
+.edit-user select,
+.edit-user button {
     display: block;
-    border: 1px solid #80CFA9;
+    width: 100%;
     height: 30px;
+    border: 1px solid #80CFA9;
+}
+
+.edit-user button {
+    margin-top: 20px;
 }
 
 .edit-user select {
     padding-top: 0;
     padding-bottom: 0;
+}
+
+@media (max-width: 766px) {
+    .wrapper-edit-user {
+        width: 60%;
+    }
+}
+
+@media (max-width: 424px) {
+    .wrapper-edit-user {
+        width: 70%;
+    }
+}
+
+@media (max-width: 365px) {
+    .wrapper-edit-user {
+        width: 80%;
+    }
+}
+
+@media (max-width: 310px) {
+    .register-form {
+        width: 95%;
+    }
 }
